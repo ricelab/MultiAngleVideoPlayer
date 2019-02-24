@@ -19,7 +19,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\AppX</LayoutDir>
-    <RegisteredManifestChecksum>A495D57E5DF4756EF55D38EEBD4EDA89301F88F57A4B82A87C49AA132EE467C1</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>1A0190B8321FA6E2C02B58C09CF990EE3BB95501E092EC41D06270778B8BF698</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>34e0c8bf-decc-4ff6-b892-0afb9cb2c801_1.0.0.0_x86__8pze1p74em2er</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>34e0c8bf-decc-4ff6-b892-0afb9cb2c801_8pze1p74em2er!App</RegisteredUserModeAppID>
     <RegisteredPackageID>34e0c8bf-decc-4ff6-b892-0afb9cb2c801</RegisteredPackageID>
@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-02-21T07:52:58.868</Modified>
+      <Modified>2019-02-24T23:10:01.518</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MultiAngleVideoPlayer.exe">
       <PackagePath>entrypoint\MultiAngleVideoPlayer.exe</PackagePath>
-      <Modified>2019-02-21T07:52:57.890</Modified>
+      <Modified>2019-02-24T23:10:00.923</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\microsoft.csharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -558,15 +558,19 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MultiAngleVideoPlayer.xr.xml">
       <PackagePath>MultiAngleVideoPlayer.xr.xml</PackagePath>
-      <Modified>2019-02-21T07:49:12.751</Modified>
+      <Modified>2019-02-24T23:06:04.325</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-02-21T07:52:57.664</Modified>
+      <Modified>2019-02-24T23:10:00.698</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\EgoView.xbf">
+      <PackagePath>EgoView.xbf</PackagePath>
+      <Modified>2019-02-24T23:10:00.699</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-02-21T07:52:57.664</Modified>
+      <Modified>2019-02-24T23:10:00.699</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -574,11 +578,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-02-21T07:20:02.180</Modified>
+      <Modified>2019-02-24T22:35:31.829</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\Core\MultiAngleVideoPlayer.exe">
       <PackagePath>MultiAngleVideoPlayer.exe</PackagePath>
-      <Modified>2019-02-21T07:52:58.825</Modified>
+      <Modified>2019-02-24T23:10:01.487</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -26,47 +26,11 @@
             <Button x:Name="V1Button" Content="Version 1 (Egocentric Choice)" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V1Button_Click"/>
             <Button x:Name="V2Button" Content="Version 2 (Exocentric Choice)" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V2Button_Click"/>
         </Grid>
-        <Grid x:Name="EgoViewGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="9*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid x:Name="AngleSelectGrid" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3" Height="996" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <MediaElement x:Name="AngleChoice0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="201" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" MediaOpened="AngleChoice_MediaOpened"/>
-                <MediaElement x:Name="AngleChoice1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" MediaOpened="AngleChoice_MediaOpened"/>
-                <MediaElement x:Name="AngleChoice2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" MediaOpened="AngleChoice_MediaOpened"/>
-                <MediaElement x:Name="AngleChoice3" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" MediaOpened="AngleChoice_MediaOpened"/>
-                <MediaElement x:Name="AngleChoice4" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" MediaOpened="AngleChoice_MediaOpened"/>
-                <Canvas x:Name="Borders" HorizontalAlignment="Stretch" Margin="0,0,0,-0.001" Grid.RowSpan="5" VerticalAlignment="Stretch">
-                    <Border x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" VerticalAlignment="Stretch" Width="375" />
-                    <Border x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="199" VerticalAlignment="Stretch" Width="375" />
-                    <Border x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="399" VerticalAlignment="Stretch" Width="375" />
-                    <Border x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="598" VerticalAlignment="Stretch" Width="375" />
-                    <Border x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="797" VerticalAlignment="Stretch" Width="375" />
-                </Canvas>
-            </Grid>
-            <TextBlock x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
-            <MediaElement x:Name="CurrentVideo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2" MediaOpened="CurrentVideo_MediaOpened"/>
-            <Button x:Name="EgoBackButton" Content="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22" Click="EgoBackButton_Click"/>
-            <TextBlock x:Name="VidControlMessage" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="274.667,23.667,0,0" Grid.Row="2" Text="Other video controls will go down here" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="20"/>
-            <Button x:Name="PlayPauseButton" Content="Play" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" FontSize="20" Click="PlayPauseButton_Click"/>
-        </Grid>
         <Grid x:Name="ExoViewGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True">
             <TextBlock x:Name="Message" Text="Under Construction" TextWrapping="Wrap" Width="660" FontSize="72" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="ExoBackButton" Content="Back" HorizontalAlignment="Center" Height="96" Margin="0,553,0,0" VerticalAlignment="Top" Width="351" FontSize="36" Click="ExoBackButton_Click"/>
         </Grid>
+        <local:EgoView x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+
     </Grid>
 </Page>
