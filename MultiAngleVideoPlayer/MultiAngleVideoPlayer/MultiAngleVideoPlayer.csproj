@@ -139,6 +139,11 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Videos\concatNum1.mp4" />
+    <Content Include="Videos\concatNum2.mp4" />
+    <Content Include="Videos\concatNum3.mp4" />
+    <Content Include="Videos\concatNum4.mp4" />
+    <Content Include="Videos\concatNum5.mp4" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
