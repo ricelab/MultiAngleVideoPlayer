@@ -46,6 +46,7 @@ namespace MultiAngleVideoPlayer
 
             //give the viewer grids a reference to the main page
             EgoViewGrid.SetMainPageReference(this);
+            ExoViewGrid.SetMainPageReference(this);
         }
 
         // ------------------------------------------------- PRIVATE METHODS --------------------------------------------------
@@ -110,6 +111,7 @@ namespace MultiAngleVideoPlayer
         {
             VersionSelectGrid.Visibility = Visibility.Collapsed;
             ExoViewGrid.Visibility = Visibility.Visible;
+            ExoViewGrid.GridVisible();
         }
 
         //temp method; this will move to another class later

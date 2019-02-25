@@ -19,7 +19,7 @@ using System.Diagnostics;
 
 namespace MultiAngleVideoPlayer
 {
-    public sealed partial class EgoView : UserControl
+    public sealed partial class EgoView : UserControl, IViewable
     {
         bool playing = false;
         TimeSpan position;
@@ -33,14 +33,15 @@ namespace MultiAngleVideoPlayer
         public EgoView()
         {
             this.InitializeComponent();
+            VideoControlGrid.viewer = this;
         }
 
-        // ------------------------------------------------- PRIVATE METHODS --------------------------------------------------
+        // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
 
         /// <summary>
         /// Enables tap and sets the source URI of all video choices.
         /// </summary>
-        private void SetupVideos()
+        public void SetupVideos()
         {
             AngleChoice0.IsTapEnabled = true;
             AngleChoice1.IsTapEnabled = true;
@@ -60,7 +61,7 @@ namespace MultiAngleVideoPlayer
         /// <summary>
         /// Starts all videos playing.
         /// </summary>
-        private void PlayVids()
+        public void PlayVid()
         {
             AngleChoice0.Play();
             AngleChoice1.Play();
@@ -73,7 +74,7 @@ namespace MultiAngleVideoPlayer
         /// <summary>
         /// Pause all videos.
         /// </summary>
-        private void PauseVids()
+        public void PauseVid()
         {
             AngleChoice0.Pause();
             AngleChoice1.Pause();
@@ -83,15 +84,13 @@ namespace MultiAngleVideoPlayer
             CurrentVideo.Pause();
         }
 
-        // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
-
         /// <summary>
         /// To be called by the main page when this control becomes visible.
         /// Disables the play/pause button to start and starts the video setup.
         /// </summary>
         public void GridVisible()
         {
-            PlayPauseButton.IsEnabled = false;
+            VideoControlGrid.EnableButton(false);
             SetupVideos();
         }
 
@@ -117,26 +116,19 @@ namespace MultiAngleVideoPlayer
             mainPage.ShowMenu();
         }
 
-        /// <summary>
-        /// Called when the play/pause button is clicked.
-        /// If not already playing, all videos will start playing. If videos are playing, pauses them.
-        /// Also updates the text on the button from "play" to "pause" as appropriate.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        public void PlayPause()
         {
             if (!playing)
             {
-                PlayPauseButton.Content = "Pause";
+                VideoControlGrid.ChangeButtonLabel("Pause");
                 playing = true;
-                PlayVids();
+                PlayVid();
             }
             else
             {
-                PlayPauseButton.Content = "Play";
+                VideoControlGrid.ChangeButtonLabel("Play");
                 playing = false;
-                PauseVids();
+                PauseVid();
             }
         }
 
@@ -147,12 +139,12 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AngleChoice_Tapped(object sender, TappedRoutedEventArgs e)
+        public void AngleChoice_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            PauseVids();
+            PauseVid();
 
             NoVidMessage.Visibility = Visibility.Collapsed;
-            PlayPauseButton.IsEnabled = true;
+            VideoControlGrid.EnableButton(true);
 
             //adjust border colors
             foreach (Border b in Borders.Children)
@@ -168,9 +160,9 @@ namespace MultiAngleVideoPlayer
 
             //set main video
             CurrentVideo.Source = selected.Source;
-            PlayVids();
+            PlayVid();
             playing = true;
-            PlayPauseButton.Content = "Pause";
+            VideoControlGrid.ChangeButtonLabel("Pause");
             position = selected.Position;
         }
 
@@ -183,7 +175,7 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CurrentVideo_MediaOpened(object sender, RoutedEventArgs e)
+        public void CurrentVideo_MediaOpened(object sender, RoutedEventArgs e)
         {
             if (position != null)
             {

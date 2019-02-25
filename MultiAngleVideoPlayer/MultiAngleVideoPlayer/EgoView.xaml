@@ -44,7 +44,6 @@
         <TextBlock x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
         <MediaElement x:Name="CurrentVideo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2" MediaOpened="CurrentVideo_MediaOpened"/>
         <Button x:Name="EgoBackButton" Content="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22" Click="EgoBackButton_Click"/>
-        <TextBlock x:Name="VidControlMessage" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="274.667,23.667,0,0" Grid.Row="2" Text="Other video controls will go down here" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="20"/>
-        <Button x:Name="PlayPauseButton" Content="Play" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" FontSize="20" Click="PlayPauseButton_Click"/>
+        <local:VideoControls x:Name="VideoControlGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

@@ -10,7 +10,7 @@
 
     <Grid x:Name="MainGrid" Margin="0,0,0,0">
 
-        <Grid x:Name="VersionSelectGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" d:IsHidden="True">
+        <Grid x:Name="VersionSelectGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -26,11 +26,7 @@
             <Button x:Name="V1Button" Content="Version 1 (Egocentric Choice)" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V1Button_Click"/>
             <Button x:Name="V2Button" Content="Version 2 (Exocentric Choice)" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V2Button_Click"/>
         </Grid>
-        <Grid x:Name="ExoViewGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True">
-            <TextBlock x:Name="Message" Text="Under Construction" TextWrapping="Wrap" Width="660" FontSize="72" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name="ExoBackButton" Content="Back" HorizontalAlignment="Center" Height="96" Margin="0,553,0,0" VerticalAlignment="Top" Width="351" FontSize="36" Click="ExoBackButton_Click"/>
-        </Grid>
-        <local:EgoView x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
-
+        <local:EgoView x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" d:IsHidden="True"/>
+        <local:ExoView x:Name="ExoViewGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True"/>
     </Grid>
 </Page>

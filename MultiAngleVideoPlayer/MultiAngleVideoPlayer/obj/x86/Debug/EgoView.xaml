@@ -28,24 +28,23 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <MediaElement x:ConnectionId='9' x:Name="AngleChoice0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="201" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='10' x:Name="AngleChoice1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='11' x:Name="AngleChoice2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='12' x:Name="AngleChoice3" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='13' x:Name="AngleChoice4" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <Canvas x:ConnectionId='14' x:Name="Borders" HorizontalAlignment="Stretch" Margin="0,0,0,-0.001" Grid.RowSpan="5" VerticalAlignment="Stretch">
-                <Border x:ConnectionId='15' x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='16' x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="199" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='17' x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="399" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='18' x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="598" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='19' x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="797" VerticalAlignment="Stretch" Width="375" />
+            <MediaElement x:ConnectionId='8' x:Name="AngleChoice0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="201" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='9' x:Name="AngleChoice1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='10' x:Name="AngleChoice2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='11' x:Name="AngleChoice3" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='12' x:Name="AngleChoice4" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <Canvas x:ConnectionId='13' x:Name="Borders" HorizontalAlignment="Stretch" Margin="0,0,0,-0.001" Grid.RowSpan="5" VerticalAlignment="Stretch">
+                <Border x:ConnectionId='14' x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" VerticalAlignment="Stretch" Width="375" />
+                <Border x:ConnectionId='15' x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="199" VerticalAlignment="Stretch" Width="375" />
+                <Border x:ConnectionId='16' x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="399" VerticalAlignment="Stretch" Width="375" />
+                <Border x:ConnectionId='17' x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="598" VerticalAlignment="Stretch" Width="375" />
+                <Border x:ConnectionId='18' x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="797" VerticalAlignment="Stretch" Width="375" />
             </Canvas>
         </Grid>
         <TextBlock x:ConnectionId='4' x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
         <MediaElement x:ConnectionId='5' x:Name="CurrentVideo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2"                                       />
         <Button x:ConnectionId='6' x:Name="EgoBackButton" Content="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"                            />
-        <TextBlock x:ConnectionId='7' x:Name="VidControlMessage" Grid.Column="1" HorizontalAlignment="Left" Height="36" Margin="274.667,23.667,0,0" Grid.Row="2" Text="Other video controls will go down here" TextWrapping="Wrap" VerticalAlignment="Top" Width="355" FontSize="20"/>
-        <Button x:ConnectionId='8' x:Name="PlayPauseButton" Content="Play" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" FontSize="20"                              />
+        <local:VideoControls x:ConnectionId='7' x:Name="VideoControlGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>
 
