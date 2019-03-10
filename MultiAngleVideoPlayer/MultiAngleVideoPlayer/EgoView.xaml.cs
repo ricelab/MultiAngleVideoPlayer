@@ -63,6 +63,9 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void PlayVid()
         {
+            VideoControlGrid.ChangeButtonLabel("Pause");
+            playing = true;
+
             AngleChoice0.Play();
             AngleChoice1.Play();
             AngleChoice2.Play();
@@ -76,6 +79,9 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void PauseVid()
         {
+            VideoControlGrid.ChangeButtonLabel("Play");
+            playing = false;
+
             AngleChoice0.Pause();
             AngleChoice1.Pause();
             AngleChoice2.Pause();
@@ -103,6 +109,21 @@ namespace MultiAngleVideoPlayer
             mainPage = page;
         }
 
+        /// <summary>
+        /// Chooses whether to play or pause the video based on the current video status
+        /// </summary>
+        public void PlayPause()
+        {
+            if (!playing)
+            {
+                PlayVid();
+            }
+            else
+            {
+                PauseVid();
+            }
+        }
+
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
         /// <summary>
@@ -116,22 +137,6 @@ namespace MultiAngleVideoPlayer
             mainPage.ShowMenu();
         }
 
-        public void PlayPause()
-        {
-            if (!playing)
-            {
-                VideoControlGrid.ChangeButtonLabel("Pause");
-                playing = true;
-                PlayVid();
-            }
-            else
-            {
-                VideoControlGrid.ChangeButtonLabel("Play");
-                playing = false;
-                PauseVid();
-            }
-        }
-
         /// <summary>
         /// Called when the user selects a video angle.
         /// De-highlights any previously highlighted video angles, then highlights the currently selected angle.
@@ -141,7 +146,7 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         public void AngleChoice_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            PauseVid();
+            CurrentVideo.Pause();
 
             NoVidMessage.Visibility = Visibility.Collapsed;
             VideoControlGrid.EnableButton(true);
@@ -161,8 +166,6 @@ namespace MultiAngleVideoPlayer
             //set main video
             CurrentVideo.Source = selected.Source;
             PlayVid();
-            playing = true;
-            VideoControlGrid.ChangeButtonLabel("Pause");
             position = selected.Position;
         }
 

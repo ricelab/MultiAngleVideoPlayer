@@ -114,12 +114,5 @@ namespace MultiAngleVideoPlayer
             ExoViewGrid.GridVisible();
         }
 
-        //temp method; this will move to another class later
-        private void ExoBackButton_Click(object sender, RoutedEventArgs e)
-        {
-            ExoViewGrid.Visibility = Visibility.Collapsed;
-            VersionSelectGrid.Visibility = Visibility.Visible;
-        }
-
     }
 }
