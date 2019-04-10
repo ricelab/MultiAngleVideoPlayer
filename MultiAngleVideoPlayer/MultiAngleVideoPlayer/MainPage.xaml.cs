@@ -37,16 +37,15 @@ namespace MultiAngleVideoPlayer
         {
             this.InitializeComponent();
 
-            //version select menu is visible to start
-            VersionSelectGrid.Visibility = Visibility.Visible;
-            EgoViewGrid.Visibility = Visibility.Collapsed;
-            ExoViewGrid.Visibility = Visibility.Collapsed;
+            //only ego view now
+            EgoViewGrid.Visibility = Visibility.Visible;
 
             LoadVideos();
 
-            //give the viewer grids a reference to the main page
+            //give the viewer grid a reference to the main page
             EgoViewGrid.SetMainPageReference(this);
-            ExoViewGrid.SetMainPageReference(this);
+
+            EgoViewGrid.GridVisible();
         }
 
         // ------------------------------------------------- PRIVATE METHODS --------------------------------------------------
@@ -58,9 +57,10 @@ namespace MultiAngleVideoPlayer
         {
             try
             {
-                for (int i = 0; i < vidURIs.Length; i++)
+                //right now the videos are weird so I've messed with this loop and the index value. Fix it later!!
+                for (int i = 1; i <= vidURIs.Length; i++)
                 {
-                    vidURIs[i] = new Uri("ms-appx:///Videos/concatNum" + (i + 1) + ".mp4");
+                    vidURIs[i-1] = new Uri("ms-appx:///Videos/testVid" + (i + 1) + ".avi");
                 }
             }
             catch (Exception e)

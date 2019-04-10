@@ -144,6 +144,11 @@
     <None Include="MultiAngleVideoPlayer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Icons\Angle0.JPG" />
+    <Content Include="Icons\Angle1.JPG" />
+    <Content Include="Icons\Angle2.JPG" />
+    <Content Include="Icons\Angle3.JPG" />
+    <Content Include="Icons\Angle4.JPG" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -157,6 +162,11 @@
     <Content Include="Videos\concatNum3.mp4" />
     <Content Include="Videos\concatNum4.mp4" />
     <Content Include="Videos\concatNum5.mp4" />
+    <Content Include="Videos\testVid2.avi" />
+    <Content Include="Videos\testVid3.avi" />
+    <Content Include="Videos\testVid4.avi" />
+    <Content Include="Videos\testVid5.avi" />
+    <Content Include="Videos\testVid6.avi" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

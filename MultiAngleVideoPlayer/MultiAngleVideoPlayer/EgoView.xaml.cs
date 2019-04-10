@@ -34,6 +34,9 @@ namespace MultiAngleVideoPlayer
         {
             this.InitializeComponent();
             VideoControlGrid.viewer = this;
+
+            //hiding this because we only have one view now
+            EgoBackButton.Visibility = Visibility.Collapsed;
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
@@ -56,6 +59,12 @@ namespace MultiAngleVideoPlayer
             AngleChoice2.Source = paths[2];
             AngleChoice3.Source = paths[3];
             AngleChoice4.Source = paths[4];
+
+            AngleChoice0.Opacity = 0.3;
+            AngleChoice1.Opacity = 0.3;
+            AngleChoice2.Opacity = 0.3;
+            AngleChoice3.Opacity = 0.3;
+            AngleChoice4.Opacity = 0.3;
         }
 
         /// <summary>

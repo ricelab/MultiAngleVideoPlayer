@@ -12,9 +12,9 @@
     <Grid x:ConnectionId='2' x:Name="VideoControlGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:ConnectionId='3' x:Name="VidControlMessage" HorizontalAlignment="Center" Text="Other video controls will go down here" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Grid.Column="1"/>
+        <TextBlock x:ConnectionId='3' x:Name="VidControlMessage" HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Grid.Column="1"/>
         <Button x:ConnectionId='4' x:Name="PlayPauseButton" Content="Play" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20"                              />
     </Grid>
 </UserControl>

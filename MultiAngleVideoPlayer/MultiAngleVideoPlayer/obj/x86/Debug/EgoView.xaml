@@ -16,11 +16,12 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:ConnectionId='3' x:Name="AngleSelectGrid" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3" Height="996" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid x:ConnectionId='3' x:Name="AngleSelectGrid" Grid.Column="3" Grid.RowSpan="3" Height="996" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0,2,0,2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -28,23 +29,38 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <MediaElement x:ConnectionId='8' x:Name="AngleChoice0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="201" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='9' x:Name="AngleChoice1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='10' x:Name="AngleChoice2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='11' x:Name="AngleChoice3" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='12' x:Name="AngleChoice4" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <Canvas x:ConnectionId='13' x:Name="Borders" HorizontalAlignment="Stretch" Margin="0,0,0,-0.001" Grid.RowSpan="5" VerticalAlignment="Stretch">
-                <Border x:ConnectionId='14' x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='15' x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="199" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='16' x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="399" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='17' x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="598" VerticalAlignment="Stretch" Width="375" />
-                <Border x:ConnectionId='18' x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="797" VerticalAlignment="Stretch" Width="375" />
+            <MediaElement x:ConnectionId='15' x:Name="AngleChoice0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='16' x:Name="AngleChoice1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='17' x:Name="AngleChoice2" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='18' x:Name="AngleChoice3" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <MediaElement x:ConnectionId='19' x:Name="AngleChoice4" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
+            <Canvas x:ConnectionId='20' x:Name="Borders" HorizontalAlignment="Stretch" Margin="0,0,0,-0.001" Grid.RowSpan="5" VerticalAlignment="Stretch">
+                <Border x:ConnectionId='21' x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" Margin="0,0,0,0" Width="250" Height="199" />
+                <Border x:ConnectionId='22' x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="199" VerticalAlignment="Stretch" Width="250" />
+                <Border x:ConnectionId='23' x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="399" VerticalAlignment="Stretch" Width="250" />
+                <Border x:ConnectionId='24' x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="598" VerticalAlignment="Stretch" Width="250" />
+                <Border x:ConnectionId='25' x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="797" VerticalAlignment="Stretch" Width="250" />
             </Canvas>
         </Grid>
         <TextBlock x:ConnectionId='4' x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
-        <MediaElement x:ConnectionId='5' x:Name="CurrentVideo" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="2"                                       />
-        <Button x:ConnectionId='6' x:Name="EgoBackButton" Content="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"                            />
-        <local:VideoControls x:ConnectionId='7' x:Name="VideoControlGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2"/>
+        <MediaElement x:ConnectionId='5' x:Name="CurrentVideo" Grid.ColumnSpan="2"                                        Grid.Row="1"/>
+        <Button x:ConnectionId='6' x:Name="EgoBackButton" Content="Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"                             Margin="0,0,0,0.333"/>
+        <local:VideoControls x:ConnectionId='7' x:Name="VideoControlGrid" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,3,0,0"/>
+        <Grid x:ConnectionId='8' x:Name="AngleIconGrid" Grid.Column="2" HorizontalAlignment="Stretch" Grid.RowSpan="3" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle x:ConnectionId='9' x:Name="IconBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="#FF7D7676" Grid.RowSpan="5" Opacity="0.3"/>
+            <Image x:ConnectionId='10' x:Name="AngleIcon0" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Source="/Icons/Angle0.JPG"/>
+            <Image x:ConnectionId='11' x:Name="AngleIcon1" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="1" Source="/Icons/Angle1.JPG"/>
+            <Image x:ConnectionId='12' x:Name="AngleIcon2" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="2" Source="/Icons/Angle2.JPG"/>
+            <Image x:ConnectionId='13' x:Name="AngleIcon3" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="3" Source="/Icons/Angle3.JPG"/>
+            <Image x:ConnectionId='14' x:Name="AngleIcon4" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="4" Source="/Icons/Angle4.JPG"/>
+        </Grid>
     </Grid>
 </UserControl>
 
