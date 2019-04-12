@@ -9,13 +9,34 @@
     d:DesignHeight="90"
     d:DesignWidth="1125">
 
-    <Grid x:ConnectionId='2' x:Name="VideoControlGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2">
+    <Grid x:ConnectionId='2' x:Name="VideoControlGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:ConnectionId='3' x:Name="VidControlMessage" HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="20" Grid.Column="1"/>
-        <Button x:ConnectionId='4' x:Name="PlayPauseButton" Content="Play" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20"                              />
+        <Button x:ConnectionId='4' x:Name="PlayPauseButton" Content="Play" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="20"                               Grid.RowSpan="2" BorderBrush="Black"/>
+        <Grid x:ConnectionId='5' x:Name="ButtonsGrid" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:ConnectionId='7' x:Name="TwoSpeedButton" Content="2x Speed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black"                             />
+            <Button x:ConnectionId='8' x:Name="HalfSpeedButton" Content="1/2 Speed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" BorderBrush="Black"                              />
+            <Button x:ConnectionId='9' x:Name="TenBackButton" Content="10 s Back" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" BorderBrush="Black"                            />
+            <Button x:ConnectionId='10' x:Name="TenForwardButton" Content="10 s Forward" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3" BorderBrush="Black"                               />
+            <Button x:ConnectionId='11' x:Name="LoopChapterButton" Content="Loop Current Chapter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="4" BorderBrush="Black" IsEnabled="False"/>
+            <Button x:ConnectionId='12' x:Name="CreateLoopButton" Content="Create Loop" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="5" BorderBrush="Black" IsEnabled="False"/>
+        </Grid>
+        <Rectangle x:ConnectionId='6' x:Name="VideoProgressBar" HorizontalAlignment="Left" Height="90" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Column="2" Width="0" Fill="#FFFA4949"/>
     </Grid>
 </UserControl>
 

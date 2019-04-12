@@ -23,7 +23,9 @@ namespace MultiAngleVideoPlayer
     {
         bool playing = false;
         TimeSpan position;
+        double rate = 1;
         MainPage mainPage;
+        DispatcherTimer timer;
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
@@ -34,9 +36,26 @@ namespace MultiAngleVideoPlayer
         {
             this.InitializeComponent();
             VideoControlGrid.viewer = this;
+            TimerSetup();
+        }
 
-            //hiding this because we only have one view now
-            EgoBackButton.Visibility = Visibility.Collapsed;
+        // -------------------------------------------------- PRIVATE METHODS -------------------------------------------------
+
+        private void TimerSetup()
+        {
+            timer = new DispatcherTimer();
+            timer.Tick += TimerTick;
+            timer.Interval = new TimeSpan(0, 0, 0, 1);
+        }
+
+        private void TimerTick(object sender, object e)
+        {
+            if (playing)
+            {
+                TimeSpan currentPosition = CurrentVideo.Position;
+                double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
+                VideoControlGrid.UpdateProgressBar((minutes / 60) + currentPosition.TotalSeconds);
+            }
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
@@ -81,6 +100,16 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Play();
             AngleChoice4.Play();
             CurrentVideo.Play();
+
+            CurrentVideo.PlaybackRate = rate;
+            AngleChoice0.PlaybackRate = rate;
+            AngleChoice1.PlaybackRate = rate;
+            AngleChoice2.PlaybackRate = rate;
+            AngleChoice3.PlaybackRate = rate;
+            AngleChoice4.PlaybackRate = rate;
+
+            timer.Start();
+            CurrentVideo.PlaybackRate = rate;
         }
 
         /// <summary>
@@ -90,6 +119,7 @@ namespace MultiAngleVideoPlayer
         {
             VideoControlGrid.ChangeButtonLabel("Play");
             playing = false;
+            rate = CurrentVideo.PlaybackRate;
 
             AngleChoice0.Pause();
             AngleChoice1.Pause();
@@ -97,6 +127,7 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Pause();
             AngleChoice4.Pause();
             CurrentVideo.Pause();
+            timer.Stop();
         }
 
         /// <summary>
@@ -105,7 +136,7 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void GridVisible()
         {
-            VideoControlGrid.EnableButton(false);
+            VideoControlGrid.EnableButtons(false);
             SetupVideos();
         }
 
@@ -133,6 +164,26 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        public void UpdateVideoSpeed(double speed)
+        {
+            CurrentVideo.PlaybackRate = speed;
+            AngleChoice0.PlaybackRate = speed;
+            AngleChoice1.PlaybackRate = speed;
+            AngleChoice2.PlaybackRate = speed;
+            AngleChoice3.PlaybackRate = speed;
+            AngleChoice4.PlaybackRate = speed;
+        }
+
+        public void UpdatePosition(int change)
+        {
+            CurrentVideo.Position += new TimeSpan(0,0,change);
+            AngleChoice0.Position += new TimeSpan(0, 0, change);
+            AngleChoice1.Position += new TimeSpan(0, 0, change);
+            AngleChoice2.Position += new TimeSpan(0, 0, change);
+            AngleChoice3.Position += new TimeSpan(0, 0, change);
+            AngleChoice4.Position += new TimeSpan(0, 0, change);
+        }
+
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
         /// <summary>
@@ -158,7 +209,7 @@ namespace MultiAngleVideoPlayer
             CurrentVideo.Pause();
 
             NoVidMessage.Visibility = Visibility.Collapsed;
-            VideoControlGrid.EnableButton(true);
+            VideoControlGrid.EnableButtons(true);
 
             //adjust border colors
             foreach (Border b in Borders.Children)
@@ -174,6 +225,7 @@ namespace MultiAngleVideoPlayer
 
             //set main video
             CurrentVideo.Source = selected.Source;
+            rate = selected.PlaybackRate;
             PlayVid();
             position = selected.Position;
         }
@@ -192,7 +244,17 @@ namespace MultiAngleVideoPlayer
             if (position != null)
             {
                 CurrentVideo.Position = position;
+                CurrentVideo.PlaybackRate = rate;
             }
+
+            TimeSpan duration = CurrentVideo.NaturalDuration.TimeSpan;
+            double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
+            VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
+        }
+
+        private void CurrentVideo_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
         }
     }
 }

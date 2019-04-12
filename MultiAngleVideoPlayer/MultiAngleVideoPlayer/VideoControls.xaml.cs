@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -19,7 +21,11 @@ namespace MultiAngleVideoPlayer
 {
     public sealed partial class VideoControls : UserControl
     {
-        public UserControl viewer { get; set; }
+        double duration = 0;
+        bool doubleSpeed = false;
+        bool halfSpeed = false;
+
+        public EgoView viewer { get; set; }
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
@@ -46,9 +52,19 @@ namespace MultiAngleVideoPlayer
         /// Enables or disables the PlayPause button. At program start, the button is disabled and must be enabled before playing.
         /// </summary>
         /// <param name="enabled">True if enabled, else false.</param>
-        public void EnableButton(bool enabled)
+        public void EnableButtons(bool enabled)
         {
             PlayPauseButton.IsEnabled = enabled;
+            TwoSpeedButton.IsEnabled = enabled;
+            HalfSpeedButton.IsEnabled = enabled;
+            TenBackButton.IsEnabled = enabled;
+            TenForwardButton.IsEnabled = enabled;
+        }
+
+        public void SetDuration(double seconds)
+        {
+            duration = seconds;
+            //Debug.WriteLine("Duration set to " + duration + " seconds in VideoControlGrid.");
         }
 
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
@@ -60,16 +76,80 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (viewer.GetType() == typeof(EgoView))
+            viewer.PlayPause();
+            if (PlayPauseButton.Content.Equals("Play"))
             {
-                EgoView tempViewer = (EgoView)viewer;
-                tempViewer.PlayPause();
-            }
-            else
+                TwoSpeedButton.IsEnabled = false;
+                HalfSpeedButton.IsEnabled = false;
+                TenBackButton.IsEnabled = false;
+                TenForwardButton.IsEnabled = false;
+            } else
             {
-                ExoView tempViewer = (ExoView)viewer;
-                tempViewer.PlayPause();
+                TwoSpeedButton.IsEnabled = true;
+                HalfSpeedButton.IsEnabled = true;
+                TenBackButton.IsEnabled = true;
+                TenForwardButton.IsEnabled = true;
             }
+        }
+
+        private void TwoSpeedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!doubleSpeed)
+            {
+                viewer.UpdateVideoSpeed(2.0);
+                TwoSpeedButton.Content = "Normal Speed";
+                HalfSpeedButton.Content = "1/2 Speed";
+                doubleSpeed = true;
+                halfSpeed = false;
+            } else
+            {
+                viewer.UpdateVideoSpeed(1.0);
+                TwoSpeedButton.Content = "2x Speed";
+                doubleSpeed = false;
+            }
+            
+        }
+
+        private void HalfSpeedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!halfSpeed)
+            {
+                viewer.UpdateVideoSpeed(0.5);
+                HalfSpeedButton.Content = "Normal Speed";
+                TwoSpeedButton.Content = "2x Speed";
+                halfSpeed = true;
+                doubleSpeed = false;
+            } else
+            {
+                viewer.UpdateVideoSpeed(1.0);
+                HalfSpeedButton.Content = "1/2 Speed";
+                halfSpeed = false;
+            }
+            
+        }
+
+        private void TenBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            viewer.UpdatePosition(-10);
+        }
+
+        private void TenForwardButton_Click(object sender, RoutedEventArgs e)
+        {
+            viewer.UpdatePosition(10);
+        }
+
+        // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
+
+        public void UpdateProgressBar(double currentPosition)
+        {
+            if (duration > 0)
+            {
+                double totalIncrements = 1000 / duration;
+                double currentIncrements = totalIncrements * currentPosition ;
+
+                VideoProgressBar.Width = currentIncrements;
+            }
+
         }
     }
 }

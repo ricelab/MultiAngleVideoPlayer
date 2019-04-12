@@ -23,11 +23,10 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:ConnectionId='6' x:Name="V1Button" Content="Version 1 (Egocentric Choice)" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24"                       />
-            <Button x:ConnectionId='7' x:Name="V2Button" Content="Version 2 (Exocentric Choice)" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24"                       />
+            <Button x:ConnectionId='5' x:Name="V1Button" Content="Version 1 (Egocentric Choice)" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24"                       />
+            <Button x:ConnectionId='6' x:Name="V2Button" Content="Version 2 (Exocentric Choice)" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24"                       />
         </Grid>
         <local:EgoView x:ConnectionId='4' x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" d:IsHidden="True"/>
-        <local:ExoView x:ConnectionId='5' x:Name="ExoViewGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True"/>
     </Grid>
 </Page>
 

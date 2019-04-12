@@ -145,7 +145,7 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win7-x86.runtime.native.system.io.compression\4.0.1\runtimes\win7-x86\native\clrcompression.dll">
       <PackagePath>clrcompression.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win7.system.private.uri\4.0.2\runtimes\win\lib\netcore50\System.Private.Uri.dll">
+    <AppxPackagedFile Include="C:\Users\jessi\.nuget\packages\runtime.win7.system.private.uri\4.0.4\runtimes\win\lib\netstandard1.0\System.Private.Uri.dll">
       <PackagePath>System.Private.Uri.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\system.appcontext\4.1.0\lib\netcore50\System.AppContext.dll">
@@ -459,9 +459,6 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\EgoView.xbf">
       <PackagePath>EgoView.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\ExoView.xbf">
-      <PackagePath>ExoView.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>

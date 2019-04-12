@@ -27,6 +27,5 @@
             <Button x:Name="V2Button" Content="Version 2 (Exocentric Choice)" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V2Button_Click"/>
         </Grid>
         <local:EgoView x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" d:IsHidden="True"/>
-        <local:ExoView x:Name="ExoViewGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True"/>
     </Grid>
 </Page>

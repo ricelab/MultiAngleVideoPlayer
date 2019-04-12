@@ -39,6 +39,7 @@ namespace MultiAngleVideoPlayer
 
             //only ego view now
             EgoViewGrid.Visibility = Visibility.Visible;
+            VersionSelectGrid.Visibility = Visibility.Collapsed;
 
             LoadVideos();
 
@@ -110,8 +111,6 @@ namespace MultiAngleVideoPlayer
         private void V2Button_Click(object sender, RoutedEventArgs e)
         {
             VersionSelectGrid.Visibility = Visibility.Collapsed;
-            ExoViewGrid.Visibility = Visibility.Visible;
-            ExoViewGrid.GridVisible();
         }
 
     }
