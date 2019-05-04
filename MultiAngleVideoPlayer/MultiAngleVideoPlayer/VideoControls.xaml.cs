@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
+using Windows.UI.Input;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,6 +25,7 @@ namespace MultiAngleVideoPlayer
         double duration = 0;
         bool doubleSpeed = false;
         bool halfSpeed = false;
+        bool scrubbing = false;
 
         public EgoView viewer { get; set; }
 
@@ -65,6 +67,22 @@ namespace MultiAngleVideoPlayer
         {
             duration = seconds;
             //Debug.WriteLine("Duration set to " + duration + " seconds in VideoControlGrid.");
+        }
+
+        public void SetPreviewPosition(Point pos)
+        {
+            double newPosition = pos.X;
+            double currentIncrements = duration / 1000 * newPosition;
+
+            viewer.ShowScrubbingPreview((int)currentIncrements);
+        }
+
+        public void CalculateVideoPosition(Point pos)
+        {
+            double newPosition = pos.X;
+            double currentIncrements = duration / 1000 * newPosition;
+
+            viewer.NewVideoPosition((int)currentIncrements);
         }
 
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
@@ -138,6 +156,44 @@ namespace MultiAngleVideoPlayer
             viewer.UpdatePosition(10);
         }
 
+        private void ScrubbingBar_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (duration > 0)
+            {
+                CalculateVideoPosition(e.GetPosition(ScrubbingBar));
+            }
+        }
+
+        private void ScrubbingBar_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            if (!scrubbing)
+            {
+                scrubbing = true;
+            }
+            if (duration > 0)
+            {
+                SetPreviewPosition(e.GetPosition(ScrubbingBar));
+            }
+        }
+
+        private void ScrubbingBar_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            if (scrubbing)
+            {
+                scrubbing = false;
+                viewer.HideScrubbingPreview();
+                CalculateVideoPosition(e.GetCurrentPoint(ScrubbingBar).Position);
+            }
+        }
+
+        private void ScrubbingBar_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (scrubbing)
+            {
+                SetPreviewPosition(e.GetCurrentPoint(ScrubbingBar).Position);
+            }
+        }
+
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
 
         public void UpdateProgressBar(double currentPosition)
@@ -149,7 +205,7 @@ namespace MultiAngleVideoPlayer
 
                 VideoProgressBar.Width = currentIncrements;
             }
-
         }
+
     }
 }

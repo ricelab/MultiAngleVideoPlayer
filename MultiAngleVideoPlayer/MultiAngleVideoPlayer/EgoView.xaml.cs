@@ -184,6 +184,30 @@ namespace MultiAngleVideoPlayer
             AngleChoice4.Position += new TimeSpan(0, 0, change);
         }
 
+        public void NewVideoPosition(int pos)
+        {
+            CurrentVideo.Position = new TimeSpan(0, 0, pos);
+            AngleChoice0.Position = new TimeSpan(0, 0, pos);
+            AngleChoice1.Position = new TimeSpan(0, 0, pos);
+            AngleChoice2.Position = new TimeSpan(0, 0, pos);
+            AngleChoice3.Position = new TimeSpan(0, 0, pos);
+            AngleChoice4.Position = new TimeSpan(0, 0, pos);
+        }
+
+        public void ShowScrubbingPreview(int pos)
+        {
+            ScrubbingGrid.Visibility = Visibility.Visible;
+            ScrubbingGrid.Margin = new Thickness((double)pos*1.5, 0, 0, 88);
+            ScrubbingPreview.Play();
+            ScrubbingPreview.Position = new TimeSpan(0, 0, pos);
+            ScrubbingPreview.Pause();
+        }
+
+        public void HideScrubbingPreview()
+        {
+            ScrubbingGrid.Visibility = Visibility.Collapsed;
+        }
+
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
         /// <summary>
@@ -225,6 +249,7 @@ namespace MultiAngleVideoPlayer
 
             //set main video
             CurrentVideo.Source = selected.Source;
+            ScrubbingPreview.Source = selected.Source;
             rate = selected.PlaybackRate;
             PlayVid();
             position = selected.Position;
@@ -255,6 +280,11 @@ namespace MultiAngleVideoPlayer
         private void CurrentVideo_MediaEnded(object sender, RoutedEventArgs e)
         {
             timer.Stop();
+        }
+
+        private void ScrubbingPreview_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            ScrubbingPreview.Pause();
         }
     }
 }

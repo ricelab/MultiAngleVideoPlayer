@@ -36,6 +36,7 @@
             <Button x:Name="LoopChapterButton" Content="Loop Current Chapter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="4" BorderBrush="Black" IsEnabled="False"/>
             <Button x:Name="CreateLoopButton" Content="Create Loop" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="5" BorderBrush="Black" IsEnabled="False"/>
         </Grid>
-        <Rectangle x:Name="VideoProgressBar" HorizontalAlignment="Left" Height="90" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Column="2" Width="0" Fill="#FFFA4949"/>
+        <Rectangle x:Name="VideoProgressBar" HorizontalAlignment="Left" Height="90" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Column="2" Width="0" Fill="#FFFF0F0F"/>
+        <Rectangle x:Name="ScrubbingBar" RenderTransformOrigin="0,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="White" Opacity="0.3" Tapped="ScrubbingBar_Tapped" Holding="ScrubbingBar_Holding" PointerReleased="ScrubbingBar_PointerReleased" PointerMoved="ScrubbingBar_PointerMoved"/>
     </Grid>
 </UserControl>

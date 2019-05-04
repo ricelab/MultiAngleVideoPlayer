@@ -27,6 +27,8 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Visibility" />
       <RootProperty Name="Background" />
       <RootMethod Name="GetRow" />
       <RootMethod Name="SetRow" />
@@ -45,6 +47,11 @@
       <RootProperty Name="Fill" />
       <RootProperty Name="Opacity" />
       <RootProperty Name="Margin" />
+      <RootProperty Name="RenderTransformOrigin" />
+      <RootEvent Name="Tapped" />
+      <RootEvent Name="Holding" />
+      <RootEvent Name="PointerReleased" />
+      <RootEvent Name="PointerMoved" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Shapes.Path">
       <RootProperty Name="Data" />
@@ -85,6 +92,7 @@
     <RootType FullName="Windows.UI.Xaml.Controls.MediaElement">
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Margin" />
       <RootProperty Name="AutoPlay" />
       <RootProperty Name="ManipulationMode" />
       <RootEvent Name="MediaOpened" />
