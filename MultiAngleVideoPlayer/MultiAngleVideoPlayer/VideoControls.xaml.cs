@@ -72,9 +72,28 @@ namespace MultiAngleVideoPlayer
         public void SetPreviewPosition(Point pos)
         {
             double newPosition = pos.X;
-            double currentIncrements = duration / 1000 * newPosition;
+            double currentIncrements = duration / 1500 * newPosition*0.75;
 
             viewer.ShowScrubbingPreview((int)currentIncrements);
+        }
+
+        public void SetChapterPositions(ChapterMarker[] markers)
+        {
+            foreach (ChapterMarker m in markers)
+            {
+                double time = m.GetStartTime();
+                double totalIncrements = 1000 / duration;
+                double increments = totalIncrements * time;
+
+                Debug.WriteLine("Position: " + increments);
+
+                Grid.SetColumn(m, 1);
+                Grid.SetRow(m, 0);
+                m.Margin = new Thickness(increments - 60, 0, 0, 0);
+                m.HorizontalAlignment = HorizontalAlignment.Left;
+                m.Tapped += ChapterMarker_Click;
+                VideoControlGrid.Children.Add(m);
+            }
         }
 
         public void CalculateVideoPosition(Point pos)
@@ -192,6 +211,13 @@ namespace MultiAngleVideoPlayer
             {
                 SetPreviewPosition(e.GetCurrentPoint(ScrubbingBar).Position);
             }
+        }
+
+        private void ChapterMarker_Click(object sender, RoutedEventArgs e)
+        {
+            ChapterMarker marker = (ChapterMarker)sender;
+            double jumpToTime = marker.GetStartTime();
+            viewer.NewVideoPosition((int)jumpToTime);
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------

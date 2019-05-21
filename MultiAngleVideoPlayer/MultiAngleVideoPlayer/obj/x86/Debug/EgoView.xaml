@@ -21,25 +21,28 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:ConnectionId='3' x:Name="AngleSelectGrid" Grid.Column="3" Grid.RowSpan="3" Height="996" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0,2,0,2">
+        <Grid x:ConnectionId='3' x:Name="AngleSelectGrid" Grid.Column="3" Grid.RowSpan="3" Height="996" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" MaxHeight="167"/>
+                <RowDefinition Height="*" MaxHeight="167"/>
+                <RowDefinition Height="*" MaxHeight="167"/>
+                <RowDefinition Height="*" MaxHeight="167"/>
+                <RowDefinition Height="*" MaxHeight="167"/>
+                <RowDefinition Height="*" MaxHeight="167"/>
             </Grid.RowDefinitions>
-            <MediaElement x:ConnectionId='17' x:Name="AngleChoice0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='18' x:Name="AngleChoice1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='19' x:Name="AngleChoice2" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='20' x:Name="AngleChoice3" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <MediaElement x:ConnectionId='21' x:Name="AngleChoice4" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" AutoPlay="False"                             ManipulationMode="All"/>
-            <Canvas x:ConnectionId='22' x:Name="Borders" HorizontalAlignment="Stretch" Margin="0,0,0,-0.001" Grid.RowSpan="5" VerticalAlignment="Stretch">
-                <Border x:ConnectionId='23' x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" Margin="0,0,0,0" Width="250" Height="199" />
-                <Border x:ConnectionId='24' x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="199" VerticalAlignment="Stretch" Width="250" />
-                <Border x:ConnectionId='25' x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="399" VerticalAlignment="Stretch" Width="250" />
-                <Border x:ConnectionId='26' x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="598" VerticalAlignment="Stretch" Width="250" />
-                <Border x:ConnectionId='27' x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Stretch" Height="199" Canvas.Top="797" VerticalAlignment="Stretch" Width="250" />
+            <MediaElement x:ConnectionId='18' x:Name="AngleChoice0" HorizontalAlignment="Left" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill"                                       />
+            <MediaElement x:ConnectionId='19' x:Name="AngleChoice1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill"/>
+            <MediaElement x:ConnectionId='20' x:Name="AngleChoice2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill"/>
+            <MediaElement x:ConnectionId='21' x:Name="AngleChoice3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All" Width="250" Height="167" MaxHeight="167" Stretch="Fill"/>
+            <MediaElement x:ConnectionId='22' x:Name="AngleChoice4" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" AutoPlay="False"                             ManipulationMode="All" Width="250" Height="167" MaxHeight="167" Stretch="Fill"/>
+            <MediaElement x:ConnectionId='23' x:Name="AngleChoice5" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Top"                             ManipulationMode="All" Width="250" Height="167" AutoPlay="False" MaxHeight="167" Stretch="Fill"/>
+            <Canvas x:ConnectionId='24' x:Name="Borders" Grid.RowSpan="6">
+                <Border x:ConnectionId='25' x:Name="Border0" BorderBrush="Black" BorderThickness="1,1,1,1" Width="250" Height="166" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <Border x:ConnectionId='26' x:Name="Border1" BorderBrush="Black" BorderThickness="1,1,1,1" Height="166" Canvas.Top="165" Width="250" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" />
+                <Border x:ConnectionId='27' x:Name="Border2" BorderBrush="Black" BorderThickness="1,1,1,1" Height="166" Canvas.Top="330" Width="250" />
+                <Border x:ConnectionId='28' x:Name="Border3" BorderBrush="Black" BorderThickness="1,1,1,1" Height="167" Canvas.Top="496" Width="250" />
+                <Border x:ConnectionId='29' x:Name="Border4" BorderBrush="Black" BorderThickness="1,1,1,1" Height="167" Canvas.Top="663" Width="250" />
+                <Border x:ConnectionId='30' x:Name="Border5" BorderBrush="Black" BorderThickness="1,1,1,1" Height="167" Canvas.Top="830" Width="250" Margin="0,0,0,0" />
             </Canvas>
         </Grid>
         <TextBlock x:ConnectionId='4' x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
@@ -52,13 +55,15 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Rectangle x:ConnectionId='11' x:Name="IconBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="#FF7D7676" Grid.RowSpan="5" Opacity="0.3"/>
-            <Image x:ConnectionId='12' x:Name="AngleIcon0" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Source="/Icons/Angle0.JPG"/>
-            <Image x:ConnectionId='13' x:Name="AngleIcon1" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="1" Source="/Icons/Angle1.JPG"/>
-            <Image x:ConnectionId='14' x:Name="AngleIcon2" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="2" Source="/Icons/Angle2.JPG"/>
-            <Image x:ConnectionId='15' x:Name="AngleIcon3" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="3" Source="/Icons/Angle3.JPG"/>
-            <Image x:ConnectionId='16' x:Name="AngleIcon4" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="4" Source="/Icons/Angle4.JPG"/>
+            <Rectangle x:ConnectionId='11' x:Name="IconBackground" Fill="#FF7D7676" Grid.RowSpan="6" Opacity="0.3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Image x:ConnectionId='12' x:Name="AngleIcon0" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Source="/Icons/CameraAbove.JPG"                            />
+            <Image x:ConnectionId='13' x:Name="AngleIcon1" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="1" Source="/Icons/CameraLeftAcross.JPG"                            />
+            <Image x:ConnectionId='14' x:Name="AngleIcon2" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="2" Source="/Icons/CameraRightAcross.JPG"                            />
+            <Image x:ConnectionId='15' x:Name="AngleIcon3" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="3" Source="/Icons/CameraRightShoulder.JPG"                            />
+            <Image x:ConnectionId='16' x:Name="AngleIcon4" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="4" Source="/Icons/CameraElbow.JPG"                            />
+            <Image x:ConnectionId='17' x:Name="AngleIcon5" HorizontalAlignment="Right" Height="100" Grid.Row="5" VerticalAlignment="Center" Width="100" Source="/Icons/CameraLeftShoulder.JPG"                            />
         </Grid>
         <Grid x:ConnectionId='8' x:Name="ScrubbingGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="109" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Bottom" Width="152" Visibility="Collapsed" Margin="125,0,0,88">
             <Rectangle x:ConnectionId='9' x:Name="ScrubbingSquare" HorizontalAlignment="Left" Height="109" VerticalAlignment="Top" Width="152" Fill="#FFFC3232"/>

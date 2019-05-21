@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI;
+using Windows.ApplicationModel.Core;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,7 +28,7 @@ namespace MultiAngleVideoPlayer
     public sealed partial class MainPage : Page
     {
         //store the paths to the video feeds
-        Uri[] vidURIs = new Uri[5];
+        Uri[] vidURIs = new Uri[6];
 
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
@@ -36,6 +39,9 @@ namespace MultiAngleVideoPlayer
         public MainPage()
         {
             this.InitializeComponent();
+
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            //coreTitleBar.ExtendViewIntoTitleBar = true;
 
             //only ego view now
             EgoViewGrid.Visibility = Visibility.Visible;
@@ -58,16 +64,22 @@ namespace MultiAngleVideoPlayer
         {
             try
             {
-                //right now the videos are weird so I've messed with this loop and the index value. Fix it later!!
-                for (int i = 1; i <= vidURIs.Length; i++)
+                for (int i = 0; i < vidURIs.Length; i++)
                 {
-                    vidURIs[i-1] = new Uri("ms-appx:///Videos/testVid" + (i + 1) + ".avi");
+                    vidURIs[i] = new Uri("ms-appx:///Videos/concatNum" + (i + 1) + ".avi");
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
+        }
+
+        private TimeSpan ConvertChapterTime()
+        {
+            //figure out what the chapter time means and turn it into minutes and seconds, if it's not already?
+
+            return new TimeSpan();
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
@@ -87,6 +99,21 @@ namespace MultiAngleVideoPlayer
         public void ShowMenu()
         {
             VersionSelectGrid.Visibility = Visibility.Collapsed;
+        }
+
+        public Chapters GetVideoChapters()
+        {
+            try
+            {
+                string json = File.ReadAllText("EditorOutputData/chapters.json");
+                Debug.WriteLine(json);
+                Chapters chapters = JsonConvert.DeserializeObject<Chapters>(json);
+                return chapters;
+            } catch(Exception e)
+            {
+                Debug.WriteLine(e);
+                return null;
+            }
         }
 
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------

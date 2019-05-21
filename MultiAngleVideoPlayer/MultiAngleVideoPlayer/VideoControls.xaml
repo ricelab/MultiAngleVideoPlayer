@@ -38,5 +38,6 @@
         </Grid>
         <Rectangle x:Name="VideoProgressBar" HorizontalAlignment="Left" Height="90" Margin="0,0,0,0" VerticalAlignment="Stretch" Grid.Column="2" Width="0" Fill="#FFFF0F0F"/>
         <Rectangle x:Name="ScrubbingBar" RenderTransformOrigin="0,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="White" Opacity="0.3" Tapped="ScrubbingBar_Tapped" Holding="ScrubbingBar_Holding" PointerReleased="ScrubbingBar_PointerReleased" PointerMoved="ScrubbingBar_PointerMoved"/>
+        <local:ChapterMarker HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="120" Grid.Column="1" Margin="67.667,-22,0,0" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

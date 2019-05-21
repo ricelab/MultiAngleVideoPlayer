@@ -122,6 +122,11 @@
     <Compile Include="CameraControl.xaml.cs">
       <DependentUpon>CameraControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChapAttributes.cs" />
+    <Compile Include="ChapterMarker.xaml.cs">
+      <DependentUpon>ChapterMarker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chapters.cs" />
     <Compile Include="EgoView.xaml.cs">
       <DependentUpon>EgoView.xaml</DependentUpon>
     </Compile>
@@ -138,14 +143,17 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="EditorOutputData\calibrationData.json" />
+    <None Include="EditorOutputData\chapters.json" />
     <None Include="MultiAngleVideoPlayer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icons\Angle0.JPG" />
-    <Content Include="Icons\Angle1.JPG" />
-    <Content Include="Icons\Angle2.JPG" />
-    <Content Include="Icons\Angle3.JPG" />
-    <Content Include="Icons\Angle4.JPG" />
+    <Content Include="Icons\CameraAbove.JPG" />
+    <Content Include="Icons\CameraElbow.JPG" />
+    <Content Include="Icons\CameraLeftAcross.JPG" />
+    <Content Include="Icons\CameraLeftShoulder.JPG" />
+    <Content Include="Icons\CameraRightAcross.JPG" />
+    <Content Include="Icons\CameraRightShoulder.JPG" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -174,6 +182,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ChapterMarker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EgoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -190,6 +202,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

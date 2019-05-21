@@ -21,11 +21,16 @@ namespace MultiAngleVideoPlayer
 {
     public sealed partial class EgoView : UserControl, IViewable
     {
+        bool chaptersSet = false;
         bool playing = false;
+        bool paused = false;
         TimeSpan position;
         double rate = 1;
         MainPage mainPage;
         DispatcherTimer timer;
+        double[] chapterTimes = null;
+        string[] chapterNames = null;
+        ChapterMarker[] markers = null;
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
@@ -58,6 +63,30 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        private void SetupChapters()
+        {
+            ChapAttributes[] chapters = mainPage.GetVideoChapters().Attributes;
+            if (chapters != null)
+            {
+                List<double> tempChapterTimes = new List<double>();
+                List<string> tempChapterNames = new List<string>();
+                foreach (ChapAttributes c in chapters)
+                {
+                    //put the chapters in
+                    tempChapterTimes.Add(c.StartTime);
+                    tempChapterNames.Add(c.Name);
+                }
+                chapterTimes = tempChapterTimes.ToArray();
+                chapterNames = tempChapterNames.ToArray();
+            }
+            else
+            {
+                Debug.WriteLine("chapters was null.");
+            }
+
+            
+        }
+
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
 
         /// <summary>
@@ -70,20 +99,25 @@ namespace MultiAngleVideoPlayer
             AngleChoice2.IsTapEnabled = true;
             AngleChoice3.IsTapEnabled = true;
             AngleChoice4.IsTapEnabled = true;
+            AngleChoice5.IsTapEnabled = true;
 
             Uri[] paths = mainPage.GetVideos();
+
+            SetupChapters();
 
             AngleChoice0.Source = paths[0];
             AngleChoice1.Source = paths[1];
             AngleChoice2.Source = paths[2];
             AngleChoice3.Source = paths[3];
             AngleChoice4.Source = paths[4];
+            AngleChoice5.Source = paths[5];
 
             AngleChoice0.Opacity = 0.3;
             AngleChoice1.Opacity = 0.3;
             AngleChoice2.Opacity = 0.3;
             AngleChoice3.Opacity = 0.3;
             AngleChoice4.Opacity = 0.3;
+            AngleChoice5.Opacity = 0.3;
         }
 
         /// <summary>
@@ -94,19 +128,24 @@ namespace MultiAngleVideoPlayer
             VideoControlGrid.ChangeButtonLabel("Pause");
             playing = true;
 
-            AngleChoice0.Play();
-            AngleChoice1.Play();
-            AngleChoice2.Play();
-            AngleChoice3.Play();
-            AngleChoice4.Play();
-            CurrentVideo.Play();
-
+            CurrentVideo.Play();            
+            if (!paused)
+            {
+                AngleChoice0.Play();
+                AngleChoice1.Play();
+                AngleChoice2.Play();
+                AngleChoice3.Play();
+                AngleChoice4.Play();
+                AngleChoice5.Play();
+            }          
+            
             CurrentVideo.PlaybackRate = rate;
             AngleChoice0.PlaybackRate = rate;
             AngleChoice1.PlaybackRate = rate;
             AngleChoice2.PlaybackRate = rate;
             AngleChoice3.PlaybackRate = rate;
             AngleChoice4.PlaybackRate = rate;
+            AngleChoice5.PlaybackRate = rate;
 
             timer.Start();
             CurrentVideo.PlaybackRate = rate;
@@ -126,6 +165,7 @@ namespace MultiAngleVideoPlayer
             AngleChoice2.Pause();
             AngleChoice3.Pause();
             AngleChoice4.Pause();
+            AngleChoice5.Pause();
             CurrentVideo.Pause();
             timer.Stop();
         }
@@ -154,6 +194,8 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void PlayPause()
         {
+            paused = !paused;
+
             if (!playing)
             {
                 PlayVid();
@@ -172,6 +214,7 @@ namespace MultiAngleVideoPlayer
             AngleChoice2.PlaybackRate = speed;
             AngleChoice3.PlaybackRate = speed;
             AngleChoice4.PlaybackRate = speed;
+            AngleChoice5.PlaybackRate = speed;
         }
 
         public void UpdatePosition(int change)
@@ -182,6 +225,7 @@ namespace MultiAngleVideoPlayer
             AngleChoice2.Position += new TimeSpan(0, 0, change);
             AngleChoice3.Position += new TimeSpan(0, 0, change);
             AngleChoice4.Position += new TimeSpan(0, 0, change);
+            AngleChoice5.Position += new TimeSpan(0, 0, change);
         }
 
         public void NewVideoPosition(int pos)
@@ -192,12 +236,13 @@ namespace MultiAngleVideoPlayer
             AngleChoice2.Position = new TimeSpan(0, 0, pos);
             AngleChoice3.Position = new TimeSpan(0, 0, pos);
             AngleChoice4.Position = new TimeSpan(0, 0, pos);
+            AngleChoice5.Position = new TimeSpan(0, 0, pos);
         }
 
         public void ShowScrubbingPreview(int pos)
         {
             ScrubbingGrid.Visibility = Visibility.Visible;
-            ScrubbingGrid.Margin = new Thickness((double)pos*1.5, 0, 0, 88);
+            ScrubbingGrid.Margin = new Thickness((double)pos, 0, 0, 88);
             ScrubbingPreview.Play();
             ScrubbingPreview.Position = new TimeSpan(0, 0, pos);
             ScrubbingPreview.Pause();
@@ -235,17 +280,18 @@ namespace MultiAngleVideoPlayer
             NoVidMessage.Visibility = Visibility.Collapsed;
             VideoControlGrid.EnableButtons(true);
 
-            //adjust border colors
-            foreach (Border b in Borders.Children)
+            MediaElement selected = null;
+            char[] name = { };
+            if (sender.GetType().Equals(AngleChoice0.GetType()))
             {
-                b.BorderBrush = new SolidColorBrush(Colors.Black);
+                selected = (MediaElement)sender;
+                name = selected.Name.ToCharArray();
             }
-            MediaElement selected = (MediaElement)sender;
-            char[] name = selected.Name.ToCharArray();
-            int vidNum = Int32.Parse(name.Last<char>().ToString());
-
-            Border border = (Border)(Borders.FindName("Border" + vidNum));
-            border.BorderBrush = new SolidColorBrush(Colors.Blue);
+            else if (sender.GetType().Equals(AngleIcon0.GetType()))
+            {
+                name = ((Image)sender).Name.ToCharArray();
+                selected = (MediaElement)AngleSelectGrid.FindName("AngleChoice" + name.Last<char>().ToString());
+            }
 
             //set main video
             CurrentVideo.Source = selected.Source;
@@ -253,6 +299,19 @@ namespace MultiAngleVideoPlayer
             rate = selected.PlaybackRate;
             PlayVid();
             position = selected.Position;
+
+            //adjust border colors
+            foreach (Border b in Borders.Children)
+            {
+                b.BorderBrush = new SolidColorBrush(Colors.Black);
+            }     
+
+            //char[] name = selected.Name.ToCharArray();
+            int vidNum = Int32.Parse(name.Last<char>().ToString());
+
+            Border border = (Border)(Borders.FindName("Border" + vidNum));
+            border.BorderBrush = new SolidColorBrush(Colors.Blue);
+     
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
@@ -268,14 +327,44 @@ namespace MultiAngleVideoPlayer
         {
             if (position != null)
             {
-                CurrentVideo.Position = position;
+                CurrentVideo.Position = AngleChoice0.Position;
                 CurrentVideo.PlaybackRate = rate;
             }
 
             TimeSpan duration = CurrentVideo.NaturalDuration.TimeSpan;
             double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
             VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
+
+
+            AngleChoice0.Play();
+            AngleChoice1.Play();
+            AngleChoice2.Play();
+            AngleChoice3.Play();
+            AngleChoice4.Play();
+            AngleChoice5.Play();
+
+            if (!chaptersSet)
+            {
+                chaptersSet = true;
+
+                if (chapterTimes != null && chapterNames != null && chapterTimes.Length == chapterNames.Length)
+                {
+                    markers = new ChapterMarker[chapterTimes.Length];
+                    for (int i = 0; i < chapterTimes.Length; i++)
+                    {
+                        markers[i] = new ChapterMarker();
+                        markers[i].SetChapterAttributes(chapterTimes[i], chapterNames[i]);
+                        markers[i].Height = 100;
+                        markers[i].Width = 120;
+                        //Debug.WriteLine(markers[i].GetStartTime());
+                    }
+                    VideoControlGrid.SetChapterPositions(markers);
+                }
+            }
+
         }
+
+
 
         private void CurrentVideo_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -285,6 +374,13 @@ namespace MultiAngleVideoPlayer
         private void ScrubbingPreview_MediaOpened(object sender, RoutedEventArgs e)
         {
             ScrubbingPreview.Pause();
+        }
+
+        private void AngleChoice0_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            //TimeSpan duration = AngleChoice0.NaturalDuration.TimeSpan;
+            //double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
+            //VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
         }
     }
 }
