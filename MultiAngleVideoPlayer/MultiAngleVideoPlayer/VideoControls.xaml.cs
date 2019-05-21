@@ -22,11 +22,15 @@ namespace MultiAngleVideoPlayer
 {
     public sealed partial class VideoControls : UserControl
     {
+        //UI-related flags
         double duration = 0;
         bool doubleSpeed = false;
         bool halfSpeed = false;
         bool scrubbing = false;
 
+        //the video viewer which this control is part of
+        //this class is leftover from a previous version which also had the option to create an ExoView viewer
+        //(should this be changed?)
         public EgoView viewer { get; set; }
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
@@ -63,12 +67,19 @@ namespace MultiAngleVideoPlayer
             TenForwardButton.IsEnabled = enabled;
         }
 
+        /// <summary>
+        /// Set the video duration so this class can calculate video positions visually, or based on user interaction.
+        /// </summary>
+        /// <param name="seconds">The duration of the video in seconds</param>
         public void SetDuration(double seconds)
         {
             duration = seconds;
-            //Debug.WriteLine("Duration set to " + duration + " seconds in VideoControlGrid.");
         }
 
+        /// <summary>
+        /// Sets the position of the scrubbing preview based on a Point selected by the user.
+        /// </summary>
+        /// <param name="pos">The position selected by the user.</param>
         public void SetPreviewPosition(Point pos)
         {
             double newPosition = pos.X;
@@ -77,6 +88,10 @@ namespace MultiAngleVideoPlayer
             viewer.ShowScrubbingPreview((int)currentIncrements);
         }
 
+        /// <summary>
+        /// Places ChapterMarkers along the timeline.
+        /// </summary>
+        /// <param name="markers">An array of ChapterMarkers to be placed.</param>
         public void SetChapterPositions(ChapterMarker[] markers)
         {
             foreach (ChapterMarker m in markers)
@@ -96,6 +111,10 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Based on a point selected by the user, determine the new video playback position.
+        /// </summary>
+        /// <param name="pos"></param>
         public void CalculateVideoPosition(Point pos)
         {
             double newPosition = pos.X;
@@ -129,6 +148,12 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Doubles the video playback rate or, if already doubled, returns it to the default rate.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TwoSpeedButton_Click(object sender, RoutedEventArgs e)
         {
             if (!doubleSpeed)
@@ -143,10 +168,15 @@ namespace MultiAngleVideoPlayer
                 viewer.UpdateVideoSpeed(1.0);
                 TwoSpeedButton.Content = "2x Speed";
                 doubleSpeed = false;
-            }
-            
+            } 
         }
 
+        /// <summary>
+        /// Decreases the playback speed to half or, if already decreased, returns it to the default rate.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HalfSpeedButton_Click(object sender, RoutedEventArgs e)
         {
             if (!halfSpeed)
@@ -161,20 +191,37 @@ namespace MultiAngleVideoPlayer
                 viewer.UpdateVideoSpeed(1.0);
                 HalfSpeedButton.Content = "1/2 Speed";
                 halfSpeed = false;
-            }
-            
+            } 
         }
 
+        /// <summary>
+        /// Jump back 10 seconds in all videos.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TenBackButton_Click(object sender, RoutedEventArgs e)
         {
             viewer.UpdatePosition(-10);
         }
 
+        /// <summary>
+        /// Jump forward 10 seconds in all videos.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TenForwardButton_Click(object sender, RoutedEventArgs e)
         {
             viewer.UpdatePosition(10);
         }
 
+        /// <summary>
+        /// Jump to new video position.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ScrubbingBar_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (duration > 0)
@@ -183,6 +230,12 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Initiate scrubbing features.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ScrubbingBar_Holding(object sender, HoldingRoutedEventArgs e)
         {
             if (!scrubbing)
@@ -195,6 +248,12 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Cancel scrubbing features.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ScrubbingBar_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             if (scrubbing)
@@ -205,6 +264,12 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Perform scrubbing features, e.g. show preview.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ScrubbingBar_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
             if (scrubbing)
@@ -213,6 +278,12 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Jump to chapter start time.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChapterMarker_Click(object sender, RoutedEventArgs e)
         {
             ChapterMarker marker = (ChapterMarker)sender;
@@ -222,6 +293,7 @@ namespace MultiAngleVideoPlayer
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
 
+        //Changes the length of the progress bar based on current video position.
         public void UpdateProgressBar(double currentPosition)
         {
             if (duration > 0)

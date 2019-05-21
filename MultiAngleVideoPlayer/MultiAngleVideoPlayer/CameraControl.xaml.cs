@@ -17,20 +17,35 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MultiAngleVideoPlayer
 {
+    /// <summary>
+    /// Class representing CameraControl icon/button.
+    /// </summary>
     public sealed partial class CameraControl : UserControl
     {
+        //The video file associated with this camera angle.
         Uri video;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public CameraControl()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the video file to be associated with this camera angle.
+        /// </summary>
+        /// <param name="path">The Uri path to the video file.</param>
         public void SetVideoUri(Uri path)
         {
             video = path;
         }
 
+        /// <summary>
+        /// Gets the video Uri associated with this camera angle.
+        /// </summary>
+        /// <returns></returns>
         public Uri GetVideoUri()
         {
             return video;

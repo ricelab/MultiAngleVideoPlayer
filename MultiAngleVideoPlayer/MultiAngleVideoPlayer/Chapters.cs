@@ -8,17 +8,15 @@ using Newtonsoft.Json.Serialization;
 
 namespace MultiAngleVideoPlayer
 {
+    /// <summary>
+    /// Class for json deserialization.
+    /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Chapters
     {
+        //"Items" contains all chapters. ChapAttributes are deserialized and stored in Attributes list.
         [JsonProperty(PropertyName = "Items")]
         public ChapAttributes[] Attributes { get; set; }
-
-        //[JsonProperty(PropertyName = "ChapterName")]
-        //public String name;
-
-        //[JsonProperty(PropertyName = "Time")]
-        //public double startTime;
 
     }
 }

@@ -19,19 +19,32 @@ namespace MultiAngleVideoPlayer
 {
     public sealed partial class ChapterMarker : UserControl
     {
+        //This chapter's start time.
         private double startTime;
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ChapterMarker()
         {
             this.InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="time">Start time for this chapter.</param>
+        /// <param name="name">Title of this chapter.</param>
         public void SetChapterAttributes(double time, string name)
         {
             startTime = time;
             ChapterTitle.Text = name;
         }
 
+        /// <summary>
+        /// Gets start time of this chapter in seconds.
+        /// </summary>
+        /// <returns>The start time of the chapter.</returns>
         public double GetStartTime()
         {
             return startTime;

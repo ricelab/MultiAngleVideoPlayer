@@ -75,13 +75,6 @@ namespace MultiAngleVideoPlayer
             }
         }
 
-        private TimeSpan ConvertChapterTime()
-        {
-            //figure out what the chapter time means and turn it into minutes and seconds, if it's not already?
-
-            return new TimeSpan();
-        }
-
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
 
         /// <summary>
@@ -101,12 +94,16 @@ namespace MultiAngleVideoPlayer
             VersionSelectGrid.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Reads the chapters.json file to get all chapter names and chapter start times.
+        /// </summary>
+        /// <returns>Chapter data read from the chapters.json file.</returns>
         public Chapters GetVideoChapters()
         {
             try
             {
                 string json = File.ReadAllText("EditorOutputData/chapters.json");
-                Debug.WriteLine(json);
+                //Debug.WriteLine(json);
                 Chapters chapters = JsonConvert.DeserializeObject<Chapters>(json);
                 return chapters;
             } catch(Exception e)

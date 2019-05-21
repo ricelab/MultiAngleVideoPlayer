@@ -21,9 +21,16 @@ namespace MultiAngleVideoPlayer
 {
     public sealed partial class EgoView : UserControl, IViewable
     {
+        //need video duration to set up chapters, but duration not available until video is loaded
+        //use flag to set chapters just once when video is first loaded
         bool chaptersSet = false;
+
+        //need to know when video is playing or not
+        //but if not playing, also need to know if video is paused or has not yet started
         bool playing = false;
         bool paused = false;
+
+        //other self-explanatory variables
         TimeSpan position;
         double rate = 1;
         MainPage mainPage;
@@ -35,7 +42,7 @@ namespace MultiAngleVideoPlayer
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
         /// <summary>
-        /// Generic constructor
+        /// Generic constructor. General setup.
         /// </summary>
         public EgoView()
         {
@@ -46,6 +53,9 @@ namespace MultiAngleVideoPlayer
 
         // -------------------------------------------------- PRIVATE METHODS -------------------------------------------------
 
+        /// <summary>
+        /// Creates a new DispatcherTimer whose tick interval is 1 second.
+        /// </summary>
         private void TimerSetup()
         {
             timer = new DispatcherTimer();
@@ -53,16 +63,9 @@ namespace MultiAngleVideoPlayer
             timer.Interval = new TimeSpan(0, 0, 0, 1);
         }
 
-        private void TimerTick(object sender, object e)
-        {
-            if (playing)
-            {
-                TimeSpan currentPosition = CurrentVideo.Position;
-                double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
-                VideoControlGrid.UpdateProgressBar((minutes / 60) + currentPosition.TotalSeconds);
-            }
-        }
-
+        /// <summary>
+        /// Gets chapter data from main page and obtains all chapter names and start times.
+        /// </summary>
         private void SetupChapters()
         {
             ChapAttributes[] chapters = mainPage.GetVideoChapters().Attributes;
@@ -72,7 +75,6 @@ namespace MultiAngleVideoPlayer
                 List<string> tempChapterNames = new List<string>();
                 foreach (ChapAttributes c in chapters)
                 {
-                    //put the chapters in
                     tempChapterTimes.Add(c.StartTime);
                     tempChapterNames.Add(c.Name);
                 }
@@ -83,17 +85,51 @@ namespace MultiAngleVideoPlayer
             {
                 Debug.WriteLine("chapters was null.");
             }
+        }
 
-            
+        /// <summary>
+        /// Creates a ChapterMarker object for each chapter and passes them to the VideoControlGrid for placement.
+        /// </summary>
+        private void CreateChapterMarkers()
+        {
+            if (chapterTimes != null && chapterNames != null && chapterTimes.Length == chapterNames.Length)
+            {
+                markers = new ChapterMarker[chapterTimes.Length];
+                for (int i = 0; i < chapterTimes.Length; i++)
+                {
+                    markers[i] = new ChapterMarker();
+                    markers[i].SetChapterAttributes(chapterTimes[i], chapterNames[i]);
+                    markers[i].Height = 100;
+                    markers[i].Width = 120;
+                    //Debug.WriteLine(markers[i].GetStartTime());
+                }
+                VideoControlGrid.SetChapterPositions(markers);
+            }
+        }
+
+        /// <summary>
+        /// Clears previous Border highlights and turns the selected Border blue.
+        /// </summary>
+        /// <param name="selectionName">The name of the Border element to turn blue.</param>
+        private void UpdateAngleBorders(string selectionName)
+        {
+            foreach (Border b in Borders.Children)
+            {
+                b.BorderBrush = new SolidColorBrush(Colors.Black);
+            }
+            int vidNum = Int32.Parse(selectionName.Last<char>().ToString());
+            Border border = (Border)(Borders.FindName("Border" + vidNum));
+            border.BorderBrush = new SolidColorBrush(Colors.Blue);
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
 
         /// <summary>
-        /// Enables tap and sets the source URI of all video choices.
+        /// Enables and initiates features for video playback.
         /// </summary>
         public void SetupVideos()
         {
+            //enable tap
             AngleChoice0.IsTapEnabled = true;
             AngleChoice1.IsTapEnabled = true;
             AngleChoice2.IsTapEnabled = true;
@@ -101,10 +137,10 @@ namespace MultiAngleVideoPlayer
             AngleChoice4.IsTapEnabled = true;
             AngleChoice5.IsTapEnabled = true;
 
+            //get video paths
             Uri[] paths = mainPage.GetVideos();
 
-            SetupChapters();
-
+            //set source URIs
             AngleChoice0.Source = paths[0];
             AngleChoice1.Source = paths[1];
             AngleChoice2.Source = paths[2];
@@ -112,12 +148,16 @@ namespace MultiAngleVideoPlayer
             AngleChoice4.Source = paths[4];
             AngleChoice5.Source = paths[5];
 
+            //dim the angle choices
             AngleChoice0.Opacity = 0.3;
             AngleChoice1.Opacity = 0.3;
             AngleChoice2.Opacity = 0.3;
             AngleChoice3.Opacity = 0.3;
             AngleChoice4.Opacity = 0.3;
             AngleChoice5.Opacity = 0.3;
+
+            //read chapter data
+            SetupChapters();
         }
 
         /// <summary>
@@ -206,6 +246,10 @@ namespace MultiAngleVideoPlayer
             }
         }
 
+        /// <summary>
+        /// Changes the video playback rate for all videos.
+        /// </summary>
+        /// <param name="speed">The new playback rate.</param>
         public void UpdateVideoSpeed(double speed)
         {
             CurrentVideo.PlaybackRate = speed;
@@ -217,6 +261,10 @@ namespace MultiAngleVideoPlayer
             AngleChoice5.PlaybackRate = speed;
         }
 
+        /// <summary>
+        /// Updates the position of all videos uniformly by adding/subtracting time from the current position.
+        /// </summary>
+        /// <param name="change">The number of seconds to jump forward or backward.</param>
         public void UpdatePosition(int change)
         {
             CurrentVideo.Position += new TimeSpan(0,0,change);
@@ -228,6 +276,10 @@ namespace MultiAngleVideoPlayer
             AngleChoice5.Position += new TimeSpan(0, 0, change);
         }
 
+        /// <summary>
+        /// Changes the playback position for all videos uniformly. This change is independent from the current playback position.
+        /// </summary>
+        /// <param name="pos">The point in the video to jump to, in seconds.</param>
         public void NewVideoPosition(int pos)
         {
             CurrentVideo.Position = new TimeSpan(0, 0, pos);
@@ -239,6 +291,10 @@ namespace MultiAngleVideoPlayer
             AngleChoice5.Position = new TimeSpan(0, 0, pos);
         }
 
+        /// <summary>
+        /// Creates a preview for the video content at the point on the timeline the user is currently holding down.
+        /// </summary>
+        /// <param name="pos">The x value of the point pressed by the user.</param>
         public void ShowScrubbingPreview(int pos)
         {
             ScrubbingGrid.Visibility = Visibility.Visible;
@@ -248,6 +304,9 @@ namespace MultiAngleVideoPlayer
             ScrubbingPreview.Pause();
         }
 
+        /// <summary>
+        /// Collapse scrubbing preview when no longer needed.
+        /// </summary>
         public void HideScrubbingPreview()
         {
             ScrubbingGrid.Visibility = Visibility.Collapsed;
@@ -280,14 +339,15 @@ namespace MultiAngleVideoPlayer
             NoVidMessage.Visibility = Visibility.Collapsed;
             VideoControlGrid.EnableButtons(true);
 
+            //Determines which angle was selected.
             MediaElement selected = null;
             char[] name = { };
-            if (sender.GetType().Equals(AngleChoice0.GetType()))
+            if (sender.GetType().Equals(AngleChoice0.GetType())) //if they clicked the video preview
             {
                 selected = (MediaElement)sender;
                 name = selected.Name.ToCharArray();
             }
-            else if (sender.GetType().Equals(AngleIcon0.GetType()))
+            else if (sender.GetType().Equals(AngleIcon0.GetType())) //if they clicked the camera icon
             {
                 name = ((Image)sender).Name.ToCharArray();
                 selected = (MediaElement)AngleSelectGrid.FindName("AngleChoice" + name.Last<char>().ToString());
@@ -300,18 +360,8 @@ namespace MultiAngleVideoPlayer
             PlayVid();
             position = selected.Position;
 
-            //adjust border colors
-            foreach (Border b in Borders.Children)
-            {
-                b.BorderBrush = new SolidColorBrush(Colors.Black);
-            }     
-
-            //char[] name = selected.Name.ToCharArray();
-            int vidNum = Int32.Parse(name.Last<char>().ToString());
-
-            Border border = (Border)(Borders.FindName("Border" + vidNum));
-            border.BorderBrush = new SolidColorBrush(Colors.Blue);
-     
+            //adjust border colours
+            UpdateAngleBorders(name.ToString());     
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
@@ -335,7 +385,7 @@ namespace MultiAngleVideoPlayer
             double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
             VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
 
-
+            //Play all dimmed angle preview videos
             AngleChoice0.Play();
             AngleChoice1.Play();
             AngleChoice2.Play();
@@ -343,44 +393,48 @@ namespace MultiAngleVideoPlayer
             AngleChoice4.Play();
             AngleChoice5.Play();
 
+            //if this is the first play, set up the chapter markers
             if (!chaptersSet)
             {
                 chaptersSet = true;
-
-                if (chapterTimes != null && chapterNames != null && chapterTimes.Length == chapterNames.Length)
-                {
-                    markers = new ChapterMarker[chapterTimes.Length];
-                    for (int i = 0; i < chapterTimes.Length; i++)
-                    {
-                        markers[i] = new ChapterMarker();
-                        markers[i].SetChapterAttributes(chapterTimes[i], chapterNames[i]);
-                        markers[i].Height = 100;
-                        markers[i].Width = 120;
-                        //Debug.WriteLine(markers[i].GetStartTime());
-                    }
-                    VideoControlGrid.SetChapterPositions(markers);
-                }
+                CreateChapterMarkers();
             }
-
         }
 
+        /// <summary>
+        /// DispatcherTimer tick event. If the video is playing, this increases the length of the video progress bar.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TimerTick(object sender, object e)
+        {
+            if (playing)
+            {
+                TimeSpan currentPosition = CurrentVideo.Position;
+                double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
+                VideoControlGrid.UpdateProgressBar((minutes / 60) + currentPosition.TotalSeconds);
+            }
+        }
 
-
+        /// <summary>
+        /// Stops the timer when the video ends.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CurrentVideo_MediaEnded(object sender, RoutedEventArgs e)
         {
             timer.Stop();
         }
 
+        /// <summary>
+        /// Pauses the preview when the scrubbing media opens to show static image of that point in the video.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ScrubbingPreview_MediaOpened(object sender, RoutedEventArgs e)
         {
             ScrubbingPreview.Pause();
         }
 
-        private void AngleChoice0_MediaOpened(object sender, RoutedEventArgs e)
-        {
-            //TimeSpan duration = AngleChoice0.NaturalDuration.TimeSpan;
-            //double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
-            //VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
-        }
     }
 }
