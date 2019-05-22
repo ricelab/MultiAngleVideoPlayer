@@ -87,23 +87,19 @@
       <RootProperty Name="FontSize" />
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
+      <RootProperty Name="FontWeight" />
+      <RootProperty Name="FocusVisualPrimaryBrush" />
+      <RootProperty Name="Foreground" />
     </RootType>
-    <RootType FullName="MultiAngleVideoPlayer.ChapterMarker">
-      <RootProperty Name="HorizontalAlignment" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Height" />
-      <RootProperty Name="Width" />
-      <RootProperty Name="Margin" />
-      <RootProperty Name="Visibility" />
-    </RootType>
+    <RootType FullName="MultiAngleVideoPlayer.ChapterMarker" />
     <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
       <RootMethod Name="GetVerticalScrollBarVisibility" />
       <RootMethod Name="SetVerticalScrollBarVisibility" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.MediaElement">
+      <RootProperty Name="Margin" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="Margin" />
       <RootProperty Name="AutoPlay" />
       <RootProperty Name="ManipulationMode" />
       <RootProperty Name="Width" />
@@ -149,8 +145,10 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="FontSize" />
       <RootProperty Name="BorderBrush" />
+      <RootProperty Name="Background" />
       <RootProperty Name="IsEnabled" />
       <RootEvent Name="Click" />
+      <RootEvent Name="Tapped" />
     </RootType>
     <RootType FullName="MultiAngleVideoPlayer.MainPage" />
   </Roots.RootTypes>

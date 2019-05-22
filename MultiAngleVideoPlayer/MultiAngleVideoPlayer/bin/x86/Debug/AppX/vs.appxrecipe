@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-05-21T20:27:01.881</Modified>
+      <Modified>2019-05-22T02:40:48.457</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MultiAngleVideoPlayer.exe">
       <PackagePath>entrypoint\MultiAngleVideoPlayer.exe</PackagePath>
-      <Modified>2019-05-21T20:27:01.075</Modified>
+      <Modified>2019-05-22T02:40:47.737</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\.nuget\packages\microsoft.csharp\4.3.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -626,31 +626,31 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MultiAngleVideoPlayer.xr.xml">
       <PackagePath>MultiAngleVideoPlayer.xr.xml</PackagePath>
-      <Modified>2019-05-21T19:36:52.497</Modified>
+      <Modified>2019-05-22T02:17:07.971</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-05-21T20:27:00.746</Modified>
+      <Modified>2019-05-22T02:40:47.551</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\CameraControl.xbf">
       <PackagePath>CameraControl.xbf</PackagePath>
-      <Modified>2019-05-21T20:27:00.747</Modified>
+      <Modified>2019-05-22T02:40:47.554</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\ChapterMarker.xbf">
       <PackagePath>ChapterMarker.xbf</PackagePath>
-      <Modified>2019-05-21T20:27:00.747</Modified>
+      <Modified>2019-05-22T02:40:47.554</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\EgoView.xbf">
       <PackagePath>EgoView.xbf</PackagePath>
-      <Modified>2019-05-21T20:27:00.738</Modified>
+      <Modified>2019-05-22T02:40:47.547</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-05-21T20:27:00.749</Modified>
+      <Modified>2019-05-22T02:40:47.555</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\VideoControls.xbf">
       <PackagePath>VideoControls.xbf</PackagePath>
-      <Modified>2019-05-21T20:27:00.749</Modified>
+      <Modified>2019-05-22T02:40:47.555</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -658,11 +658,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-05-21T18:23:16.437</Modified>
+      <Modified>2019-05-22T00:31:54.799</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\Core\MultiAngleVideoPlayer.exe">
       <PackagePath>MultiAngleVideoPlayer.exe</PackagePath>
-      <Modified>2019-05-21T20:27:01.844</Modified>
+      <Modified>2019-05-22T02:40:48.436</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

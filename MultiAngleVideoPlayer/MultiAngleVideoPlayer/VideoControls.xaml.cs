@@ -27,6 +27,8 @@ namespace MultiAngleVideoPlayer
         bool doubleSpeed = false;
         bool halfSpeed = false;
         bool scrubbing = false;
+        bool chapterLooping = false;
+        //bool customLooping = false;
 
         //the video viewer which this control is part of
         //this class is leftover from a previous version which also had the option to create an ExoView viewer
@@ -41,6 +43,66 @@ namespace MultiAngleVideoPlayer
         public VideoControls()
         {
             this.InitializeComponent();
+        }
+
+        // -------------------------------------------------- PRIVATE METHODS -------------------------------------------------
+
+        private void ToggleDoubleSpeed(bool toggleOn)
+        {
+            doubleSpeed = toggleOn;
+            //string message = "";
+            if (doubleSpeed)
+            {
+                TwoSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
+                //message = "2x Playback Speed";
+            }  
+            else
+                TwoSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+
+            //viewer.UpdateSpeedLabel(message);
+        }
+
+        private void ToggleHalfSpeed(bool toggleOn)
+        {
+            halfSpeed = toggleOn;
+            //string message = "";
+            if (halfSpeed)
+            {
+                HalfSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
+                //message = "1/2 Playback Speed";
+            }   
+            else
+                HalfSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+
+            //viewer.UpdateSpeedLabel(message);
+        }
+
+        private void BuildSpeedMessage()
+        {
+            string message = "";
+            if (doubleSpeed)
+            {
+                message = "2x Playback Speed";
+            } else if (halfSpeed)
+            {
+                message = "1/2 Playback Speed";
+            }
+            viewer.UpdateSpeedLabel(message);
+        }
+
+        private void ToggleLoopChapter(bool toggleOn)
+        {
+            chapterLooping = toggleOn;
+            string message = "";
+            if (chapterLooping)
+            {
+                LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
+                message = "Looping Current Chapter";
+            }              
+            else
+                LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+
+            viewer.UpdateLoopLabel(message);
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
@@ -65,6 +127,7 @@ namespace MultiAngleVideoPlayer
             HalfSpeedButton.IsEnabled = enabled;
             TenBackButton.IsEnabled = enabled;
             TenForwardButton.IsEnabled = enabled;
+            LoopChapterButton.IsEnabled = enabled;
         }
 
         /// <summary>
@@ -104,7 +167,7 @@ namespace MultiAngleVideoPlayer
 
                 Grid.SetColumn(m, 1);
                 Grid.SetRow(m, 0);
-                m.Margin = new Thickness(increments - 60, 0, 0, 0);
+                m.Margin = new Thickness(increments - 50, -25, 0, 25);
                 m.HorizontalAlignment = HorizontalAlignment.Left;
                 m.Tapped += ChapterMarker_Click;
                 VideoControlGrid.Children.Add(m);
@@ -139,12 +202,14 @@ namespace MultiAngleVideoPlayer
                 HalfSpeedButton.IsEnabled = false;
                 TenBackButton.IsEnabled = false;
                 TenForwardButton.IsEnabled = false;
+                LoopChapterButton.IsEnabled = false;
             } else
             {
                 TwoSpeedButton.IsEnabled = true;
                 HalfSpeedButton.IsEnabled = true;
                 TenBackButton.IsEnabled = true;
                 TenForwardButton.IsEnabled = true;
+                LoopChapterButton.IsEnabled = true;
             }
         }
 
@@ -159,16 +224,17 @@ namespace MultiAngleVideoPlayer
             if (!doubleSpeed)
             {
                 viewer.UpdateVideoSpeed(2.0);
-                TwoSpeedButton.Content = "Normal Speed";
-                HalfSpeedButton.Content = "1/2 Speed";
-                doubleSpeed = true;
-                halfSpeed = false;
+                //TwoSpeedButton.Content = "Normal Speed";
+                //HalfSpeedButton.Content = "1/2 Speed";
+                ToggleDoubleSpeed(true);
+                ToggleHalfSpeed(false);
             } else
             {
                 viewer.UpdateVideoSpeed(1.0);
-                TwoSpeedButton.Content = "2x Speed";
-                doubleSpeed = false;
-            } 
+                //TwoSpeedButton.Content = "2x Speed";
+                ToggleDoubleSpeed(false);
+            }
+            BuildSpeedMessage();
         }
 
         /// <summary>
@@ -182,16 +248,17 @@ namespace MultiAngleVideoPlayer
             if (!halfSpeed)
             {
                 viewer.UpdateVideoSpeed(0.5);
-                HalfSpeedButton.Content = "Normal Speed";
-                TwoSpeedButton.Content = "2x Speed";
-                halfSpeed = true;
-                doubleSpeed = false;
+                //HalfSpeedButton.Content = "Normal Speed";
+                //TwoSpeedButton.Content = "2x Speed";
+                ToggleHalfSpeed(true);
+                ToggleDoubleSpeed(false);
             } else
             {
                 viewer.UpdateVideoSpeed(1.0);
-                HalfSpeedButton.Content = "1/2 Speed";
-                halfSpeed = false;
-            } 
+                //HalfSpeedButton.Content = "1/2 Speed";
+                ToggleHalfSpeed(false);
+            }
+            BuildSpeedMessage();
         }
 
         /// <summary>
@@ -214,6 +281,34 @@ namespace MultiAngleVideoPlayer
         private void TenForwardButton_Click(object sender, RoutedEventArgs e)
         {
             viewer.UpdatePosition(10);
+        }
+
+        /// <summary>
+        /// Loops the current chapter.
+        /// Invoked by user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoopChapterButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (!chapterLooping)
+            {
+                ToggleLoopChapter(true);
+                int chapterIndex = viewer.GetCurrentChapterIndex();
+                double startLoop = viewer.GetChapter(chapterIndex).GetStartTime();
+                ChapterMarker endMarker = viewer.GetChapter(chapterIndex + 1);
+                double endLoop = duration - 2;
+                if (endMarker != null)
+                {
+                    endLoop = endMarker.GetStartTime();
+                }
+                viewer.UpdateLoopBounds(startLoop, endLoop);
+
+            } else
+            {
+                ToggleLoopChapter(false);
+                viewer.CancelLoop();
+            }
         }
 
         /// <summary>
@@ -304,6 +399,5 @@ namespace MultiAngleVideoPlayer
                 VideoProgressBar.Width = currentIncrements;
             }
         }
-
     }
 }

@@ -30,7 +30,7 @@
                 <RowDefinition Height="*" MaxHeight="167"/>
                 <RowDefinition Height="*" MaxHeight="167"/>
             </Grid.RowDefinitions>
-            <MediaElement x:Name="AngleChoice0" HorizontalAlignment="Left" VerticalAlignment="Top" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill" MediaOpened="AngleChoice0_MediaOpened"/>
+            <MediaElement x:Name="AngleChoice0" HorizontalAlignment="Left" VerticalAlignment="Top" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill"/>
             <MediaElement x:Name="AngleChoice1" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill"/>
             <MediaElement x:Name="AngleChoice2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" Width="250" Height="166" MaxHeight="166" Stretch="Fill"/>
             <MediaElement x:Name="AngleChoice3" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" AutoPlay="False" Tapped="AngleChoice_Tapped" ManipulationMode="All" Width="250" Height="167" MaxHeight="167" Stretch="Fill"/>
@@ -46,7 +46,7 @@
             </Canvas>
         </Grid>
         <TextBlock x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
-        <MediaElement x:Name="CurrentVideo" Grid.ColumnSpan="2" MediaOpened="CurrentVideo_MediaOpened" Grid.Row="1"/>
+        <MediaElement x:Name="CurrentVideo" Grid.ColumnSpan="2" MediaOpened="CurrentVideo_MediaOpened" Grid.Row="1" Margin="0,20,0,0"/>
         <local:VideoControls x:Name="VideoControlGrid" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,3,0,0"/>
         <Grid x:Name="AngleIconGrid" Grid.Column="2" HorizontalAlignment="Stretch" Grid.RowSpan="3" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
@@ -69,5 +69,7 @@
             <Rectangle x:Name="ScrubbingSquare" HorizontalAlignment="Left" Height="109" VerticalAlignment="Top" Width="152" Fill="#FFFC3232"/>
             <MediaElement x:Name="ScrubbingPreview" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True" Margin="2,2,2,2" MediaOpened="ScrubbingPreview_MediaOpened" AutoPlay="False"/>
         </Grid>
+        <TextBlock x:Name="LoopStatusLabel" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="50" FontSize="36" FontWeight="Bold" FocusVisualPrimaryBrush="#FF4E47F6" Foreground="#FF4E47F6" TextAlignment="Left"/>
+        <TextBlock x:Name="SpeedStatusLabel" HorizontalAlignment="Left" Height="50" Margin="0,50,0,-20" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF4E47F6" Grid.ColumnSpan="2" FontSize="36" FontWeight="Bold"/>
     </Grid>
 </UserControl>

@@ -38,6 +38,8 @@ namespace MultiAngleVideoPlayer
         double[] chapterTimes = null;
         string[] chapterNames = null;
         ChapterMarker[] markers = null;
+        int currentChapterIndex = 0;
+        Tuple<double,double> loopBounds = null;
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
@@ -99,8 +101,8 @@ namespace MultiAngleVideoPlayer
                 {
                     markers[i] = new ChapterMarker();
                     markers[i].SetChapterAttributes(chapterTimes[i], chapterNames[i]);
-                    markers[i].Height = 100;
-                    markers[i].Width = 120;
+                    markers[i].Height = 70;
+                    markers[i].Width = 100;
                     //Debug.WriteLine(markers[i].GetStartTime());
                 }
                 VideoControlGrid.SetChapterPositions(markers);
@@ -111,7 +113,7 @@ namespace MultiAngleVideoPlayer
         /// Clears previous Border highlights and turns the selected Border blue.
         /// </summary>
         /// <param name="selectionName">The name of the Border element to turn blue.</param>
-        private void UpdateAngleBorders(string selectionName)
+        private void UpdateAngleBorders(char[] selectionName)
         {
             foreach (Border b in Borders.Children)
             {
@@ -120,6 +122,53 @@ namespace MultiAngleVideoPlayer
             int vidNum = Int32.Parse(selectionName.Last<char>().ToString());
             Border border = (Border)(Borders.FindName("Border" + vidNum));
             border.BorderBrush = new SolidColorBrush(Colors.Blue);
+        }
+
+        /// <summary>
+        /// Updates the current chapter if it needs updating.
+        /// </summary>
+        private void CheckUpdateChapter(double seconds)
+        {
+            bool updateChapter = true;
+            if (currentChapterIndex + 1 < markers.Length)
+            {
+                if (markers[currentChapterIndex].GetStartTime() < seconds && seconds < markers[currentChapterIndex + 1].GetStartTime())
+                {
+                    updateChapter = false;
+                }
+            } else
+            {
+                if (markers[currentChapterIndex].GetStartTime() < seconds)
+                {
+                    updateChapter = false;
+                }
+            }
+            if (updateChapter)
+            {
+                int i = 0;
+                bool found = false;
+                while (!found && i < markers.Length - 1)
+                {
+                    if (markers[i].GetStartTime() < seconds && markers[i+1].GetStartTime() > seconds)
+                    {
+                        currentChapterIndex = i;
+                        found = true;
+                    }
+                    i++;
+                }
+                if (!found)
+                {
+                    currentChapterIndex = markers.Length - 1;
+                }
+            }
+        }
+
+        private void CheckRestartLoop(double seconds)
+        {
+            if (seconds > loopBounds.Item2)
+            {
+                NewVideoPosition((int)loopBounds.Item1);
+            }
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
@@ -312,6 +361,40 @@ namespace MultiAngleVideoPlayer
             ScrubbingGrid.Visibility = Visibility.Collapsed;
         }
 
+        public void UpdateLoopBounds(double start, double end)
+        {
+            loopBounds = new Tuple<double, double>(start, end);
+        }
+
+        public void CancelLoop()
+        {
+            loopBounds = null;
+        }
+
+        public int GetCurrentChapterIndex()
+        {
+            return currentChapterIndex;
+        }
+
+        public ChapterMarker GetChapter(int index)
+        {
+            if (index < markers.Length)
+                return markers[index];
+            else
+                return null;
+        }
+
+        public void UpdateLoopLabel(string message)
+        {
+            LoopStatusLabel.Text = message;
+        }
+
+        public void UpdateSpeedLabel(string message)
+        {
+            SpeedStatusLabel.Text = message;
+            Debug.WriteLine(message);
+        }
+
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
         /// <summary>
@@ -361,7 +444,7 @@ namespace MultiAngleVideoPlayer
             position = selected.Position;
 
             //adjust border colours
-            UpdateAngleBorders(name.ToString());     
+            UpdateAngleBorders(name);     
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
@@ -403,6 +486,7 @@ namespace MultiAngleVideoPlayer
 
         /// <summary>
         /// DispatcherTimer tick event. If the video is playing, this increases the length of the video progress bar.
+        /// Also checks which chapter video is in.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -412,7 +496,13 @@ namespace MultiAngleVideoPlayer
             {
                 TimeSpan currentPosition = CurrentVideo.Position;
                 double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
-                VideoControlGrid.UpdateProgressBar((minutes / 60) + currentPosition.TotalSeconds);
+                double seconds = (minutes / 60) + currentPosition.TotalSeconds;
+                VideoControlGrid.UpdateProgressBar(seconds);
+
+                if (markers != null)
+                    CheckUpdateChapter(seconds);
+                if (loopBounds != null)
+                    CheckRestartLoop(seconds);
             }
         }
 
@@ -423,6 +513,7 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         private void CurrentVideo_MediaEnded(object sender, RoutedEventArgs e)
         {
+            playing = false;
             timer.Stop();
         }
 
