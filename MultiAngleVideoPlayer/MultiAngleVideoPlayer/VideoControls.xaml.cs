@@ -213,6 +213,19 @@ namespace MultiAngleVideoPlayer
             return (int)currentIncrements;
         }
 
+        public void ResetFlags()
+        {
+            duration = 0;
+            doubleSpeed = false;
+            halfSpeed = false;
+            scrubbing = false;
+            chapterLooping = false;
+
+            TwoSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+            HalfSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+            LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+        }
+
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
         /// <summary>
@@ -424,7 +437,11 @@ namespace MultiAngleVideoPlayer
         //Changes the length of the progress bar based on current video position.
         public void UpdateProgressBar(double currentPosition)
         {
-            if (duration > 0)
+            if (currentPosition == -1)
+            {
+                VideoProgressBar.Width = 0;
+            }
+            else if (duration > 0)
             {
                 //double totalIncrements = 1000 / duration;
                 double totalIncrements = ScrubbingBar.ActualWidth / duration;

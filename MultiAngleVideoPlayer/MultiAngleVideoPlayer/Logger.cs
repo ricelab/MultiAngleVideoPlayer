@@ -14,6 +14,7 @@ namespace MultiAngleVideoPlayer
     {
         public static StorageFolder logsFolder;
         public static StorageFile logFile;
+        public static bool log_yes = true;
 
         public static async void CreateLog(string participantNum)
         {
@@ -41,8 +42,11 @@ namespace MultiAngleVideoPlayer
 
         public static void Log(String logMessage)
         {
-            Action act = delegate () { LogAsync(logMessage); };
-            Task.Run(act);
+            if (log_yes)
+            {
+                Action act = delegate () { LogAsync(logMessage); };
+                Task.Run(act);
+            }
         }
 
     }

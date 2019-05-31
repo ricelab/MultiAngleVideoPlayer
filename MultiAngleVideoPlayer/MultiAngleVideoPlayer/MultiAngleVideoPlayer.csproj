@@ -163,16 +163,6 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Videos\concatNum1.mp4" />
-    <Content Include="Videos\concatNum2.mp4" />
-    <Content Include="Videos\concatNum3.mp4" />
-    <Content Include="Videos\concatNum4.mp4" />
-    <Content Include="Videos\concatNum5.mp4" />
-    <Content Include="Videos\testVid2.avi" />
-    <Content Include="Videos\testVid3.avi" />
-    <Content Include="Videos\testVid4.avi" />
-    <Content Include="Videos\testVid5.avi" />
-    <Content Include="Videos\testVid6.avi" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -207,6 +197,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Videos\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

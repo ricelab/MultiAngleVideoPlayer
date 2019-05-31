@@ -1,0 +1,15 @@
+{
+    "Items": [{
+        "ChapterName": "Building the first figure",
+        "Time": 0.0
+    }, {
+        "ChapterName": "Still building the first figure",
+        "Time": 50.0
+    }, {
+        "ChapterName": "Building the second figure",
+        "Time": 68.0
+    }, {
+        "ChapterName": "Near the end",
+        "Time": 210.0
+    }]
+}

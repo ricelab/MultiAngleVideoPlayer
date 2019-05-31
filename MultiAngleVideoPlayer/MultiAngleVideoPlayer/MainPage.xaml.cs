@@ -29,6 +29,8 @@ namespace MultiAngleVideoPlayer
     {
         //store the paths to the video feeds
         Uri[] vidURIs = new Uri[6];
+        bool testMode = false;
+        string participant = "";
 
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
@@ -44,13 +46,13 @@ namespace MultiAngleVideoPlayer
             //coreTitleBar.ExtendViewIntoTitleBar = true;
 
             //initialize logger
-            Logger.CreateLog("test");
+            //Logger.CreateLog("test");
 
-            //only ego view now
-            EgoViewGrid.Visibility = Visibility.Visible;
-            VersionSelectGrid.Visibility = Visibility.Collapsed;
+            //set grid visibility
+            EgoViewGrid.Visibility = Visibility.Collapsed;
+            VersionSelectGrid.Visibility = Visibility.Visible;
 
-            LoadVideos();
+            //LoadVideos();
 
             //give the viewer grid a reference to the main page
             EgoViewGrid.SetMainPageReference(this);
@@ -69,7 +71,13 @@ namespace MultiAngleVideoPlayer
             {
                 for (int i = 0; i < vidURIs.Length; i++)
                 {
-                    vidURIs[i] = new Uri("ms-appx:///Videos/concatNum" + (i + 1) + ".mp4");
+                    if (testMode)
+                    {
+                        vidURIs[i] = new Uri("ms-appx:///Videos/lego" + (i + 1) + ".avi");
+                    } else
+                    {
+                        vidURIs[i] = new Uri("ms-appx:///Videos/lamp" + (i + 1) + ".mp4");
+                    }
                 }
             }
             catch (Exception e)
@@ -94,7 +102,8 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void ShowMenu()
         {
-            VersionSelectGrid.Visibility = Visibility.Collapsed;
+            VersionSelectGrid.Visibility = Visibility.Visible;
+            EgoViewGrid.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -105,8 +114,14 @@ namespace MultiAngleVideoPlayer
         {
             try
             {
-                string json = File.ReadAllText("EditorOutputData/chapters.json");
-                //Debug.WriteLine(json);
+                string json;
+                if (testMode)
+                {
+                    json = File.ReadAllText("EditorOutputData/lego_chapters.json");
+                } else
+                {
+                    json = File.ReadAllText("EditorOutputData/lamp_chapters.json");
+                }
                 Chapters chapters = JsonConvert.DeserializeObject<Chapters>(json);
                 return chapters;
             } catch(Exception e)
@@ -140,5 +155,28 @@ namespace MultiAngleVideoPlayer
             VersionSelectGrid.Visibility = Visibility.Collapsed;
         }
 
+        private void TestVersionButton_Click(object sender, RoutedEventArgs e)
+        {
+            testMode = true;
+            Logger.log_yes = false;
+            LoadVideos();
+            participant = ParticipantBox.Text;
+            VersionSelectGrid.Visibility = Visibility.Collapsed;
+            EgoViewGrid.Visibility = Visibility.Visible;
+            EgoViewGrid.GridVisible();
+        }
+
+        private void RealVersionButton_Click(object sender, RoutedEventArgs e)
+        {
+            testMode = false;
+            Logger.log_yes = true;
+            participant = ParticipantBox.Text;
+            Logger.CreateLog(participant);
+            LoadVideos();
+            VersionSelectGrid.Visibility = Visibility.Collapsed;
+            EgoViewGrid.Visibility = Visibility.Visible;
+            EgoViewGrid.HideBackButton();
+            EgoViewGrid.GridVisible();
+        }
     }
 }

@@ -120,9 +120,13 @@ namespace MultiAngleVideoPlayer
             {
                 b.BorderBrush = new SolidColorBrush(Colors.Black);
             }
-            int vidNum = Int32.Parse(selectionName.Last<char>().ToString());
-            Border border = (Border)(Borders.FindName("Border" + vidNum));
-            border.BorderBrush = new SolidColorBrush(Colors.Blue);
+
+            if (selectionName != null)
+            {
+                int vidNum = Int32.Parse(selectionName.Last<char>().ToString());
+                Border border = (Border)(Borders.FindName("Border" + vidNum));
+                border.BorderBrush = new SolidColorBrush(Colors.Blue);
+            }
         }
 
         /// <summary>
@@ -402,6 +406,11 @@ namespace MultiAngleVideoPlayer
             Debug.WriteLine(message);
         }
 
+        public void HideBackButton()
+        {
+            BackButton.Visibility = Visibility.Collapsed;
+        }
+
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
         /// <summary>
@@ -537,5 +546,35 @@ namespace MultiAngleVideoPlayer
             ScrubbingPreview.Pause();
         }
 
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainPage.ShowMenu();
+            foreach(ChapterMarker m in markers)
+            {
+                m.Visibility = Visibility.Collapsed;
+            }
+            markers = null;
+            CurrentVideo.Stop();
+            CurrentVideo.Source = null;
+            VideoControlGrid.UpdateProgressBar(-1);
+            SpeedStatusLabel.Text = "";
+            LoopStatusLabel.Text = "";
+            timer.Stop();
+
+            chaptersSet = false;
+            playing = false;
+            paused = false;
+
+            rate = 1;
+            chapterTimes = null;
+            chapterNames = null;
+            currentChapterIndex = 0;
+            loopBounds = null;
+
+            NoVidMessage.Visibility = Visibility.Visible;
+            VideoControlGrid.ResetFlags();
+            UpdateAngleBorders(null);
+        }
     }
 }

@@ -439,36 +439,6 @@
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\concatNum1.mp4">
-      <PackagePath>Videos\concatNum1.mp4</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\concatNum2.mp4">
-      <PackagePath>Videos\concatNum2.mp4</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\concatNum3.mp4">
-      <PackagePath>Videos\concatNum3.mp4</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\concatNum4.mp4">
-      <PackagePath>Videos\concatNum4.mp4</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\concatNum5.mp4">
-      <PackagePath>Videos\concatNum5.mp4</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\testVid2.avi">
-      <PackagePath>Videos\testVid2.avi</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\testVid3.avi">
-      <PackagePath>Videos\testVid3.avi</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\testVid4.avi">
-      <PackagePath>Videos\testVid4.avi</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\testVid5.avi">
-      <PackagePath>Videos\testVid5.avi</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\Videos\testVid6.avi">
-      <PackagePath>Videos\testVid6.avi</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\jessi\Documents\GitHub\MultiAngleVideoPlayer\MultiAngleVideoPlayer\MultiAngleVideoPlayer\bin\x86\Debug\MultiAngleVideoPlayer.xr.xml">
       <PackagePath>MultiAngleVideoPlayer.xr.xml</PackagePath>
     </AppxPackagedFile>

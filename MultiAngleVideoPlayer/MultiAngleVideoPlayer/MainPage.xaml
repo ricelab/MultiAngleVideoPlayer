@@ -15,16 +15,18 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="V1Button" Content="Version 1 (Egocentric Choice)" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V1Button_Click"/>
-            <Button x:Name="V2Button" Content="Version 2 (Exocentric Choice)" Grid.Column="3" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontSize="24" Click="V2Button_Click"/>
+            <Button x:Name="TestVersionButton" Content="Test Version" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" FontSize="24" Margin="10,10,10,10" Click="TestVersionButton_Click"/>
+            <Button x:Name="RealVersionButton" Content="Real Version" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" FontSize="24" Margin="10,10,10,10" Click="RealVersionButton_Click"/>
+            <TextBlock x:Name="ParticipantLabel" Grid.Column="1" HorizontalAlignment="Left" Margin="30,30,0,0" Grid.Row="1" Text="Participant Number:" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="215" FontSize="24"/>
+            <TextBox x:Name="ParticipantBox" Grid.Column="1" HorizontalAlignment="Right" Height="42" Margin="0,30,30,0" Grid.Row="1" Text="" VerticalAlignment="Top" Width="181"/>
         </Grid>
         <local:EgoView x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" d:IsHidden="True"/>
     </Grid>

@@ -71,5 +71,6 @@
         </Grid>
         <TextBlock x:Name="LoopStatusLabel" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="50" FontSize="36" FontWeight="Bold" FocusVisualPrimaryBrush="#FF4E47F6" Foreground="#FF4E47F6" TextAlignment="Left"/>
         <TextBlock x:Name="SpeedStatusLabel" HorizontalAlignment="Left" Height="50" Margin="0,50,0,-20" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF4E47F6" Grid.ColumnSpan="2" FontSize="36" FontWeight="Bold"/>
+        <Button x:Name="BackButton" Content="Back" Grid.Column="1" HorizontalAlignment="Left" Height="89" Margin="861.667,0,0,0" VerticalAlignment="Center" Width="128" Click="BackButton_Click"/>
     </Grid>
 </UserControl>
