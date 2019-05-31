@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -168,6 +169,7 @@ namespace MultiAngleVideoPlayer
             if (seconds > loopBounds.Item2)
             {
                 NewVideoPosition((int)loopBounds.Item1);
+                Logger.Log("Restarting chapter.");
             }
         }
 
@@ -214,6 +216,7 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void PlayVid()
         {
+            //Logger.Log("Pressed play.");
             VideoControlGrid.ChangeButtonLabel("Pause");
             playing = true;
 
@@ -245,6 +248,7 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void PauseVid()
         {
+            //Logger.Log("Pressed pause.");
             VideoControlGrid.ChangeButtonLabel("Play");
             playing = false;
             rate = CurrentVideo.PlaybackRate;
@@ -288,10 +292,12 @@ namespace MultiAngleVideoPlayer
             if (!playing)
             {
                 PlayVid();
+                Logger.Log("Pressed play.");
             }
             else
             {
                 PauseVid();
+                Logger.Log("Pressed pause.");
             }
         }
 
@@ -364,6 +370,7 @@ namespace MultiAngleVideoPlayer
         public void UpdateLoopBounds(double start, double end)
         {
             loopBounds = new Tuple<double, double>(start, end);
+            Logger.Log("Starting loop chapter: " + chapterNames[currentChapterIndex]);
         }
 
         public void CancelLoop()
@@ -444,7 +451,9 @@ namespace MultiAngleVideoPlayer
             position = selected.Position;
 
             //adjust border colours
-            UpdateAngleBorders(name);     
+            UpdateAngleBorders(name);
+
+            Logger.Log(new string(name) + " selected.");
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
@@ -515,6 +524,7 @@ namespace MultiAngleVideoPlayer
         {
             playing = false;
             timer.Stop();
+            Logger.Log("End of video.");
         }
 
         /// <summary>

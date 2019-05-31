@@ -49,5 +49,11 @@ namespace MultiAngleVideoPlayer
         {
             return startTime;
         }
+
+        public String GetText()
+        {
+            return ChapterTitle.Text;
+        }
+
     }
 }

@@ -131,6 +131,7 @@
       <DependentUpon>EgoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="IViewable.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

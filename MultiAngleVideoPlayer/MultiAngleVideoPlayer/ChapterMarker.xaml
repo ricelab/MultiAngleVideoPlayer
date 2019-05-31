@@ -19,9 +19,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="TimelineRectangle" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Fill="#FFD9E209"/>
+        <Rectangle x:Name="TimelineRectangle" Grid.Row="1" Fill="#FFD9E209" Grid.Column="1"/>
         <Rectangle x:Name="TitleRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="#FFD9E209" Grid.ColumnSpan="3"/>
-        <TextBlock x:Name="ChapterTitle" Text="Chapter" HorizontalAlignment="Stretch" Margin="2,2,2,2" TextWrapping="NoWrap" VerticalAlignment="Stretch" TextAlignment="Center" LineHeight="12" FontSize="12" Grid.ColumnSpan="3"/>
+        <TextBlock x:Name="ChapterTitle" Text="Chapter" HorizontalAlignment="Stretch" Margin="2,2,2,2" TextWrapping="WrapWholeWords" VerticalAlignment="Stretch" TextAlignment="Center" LineHeight="12" FontSize="9" Grid.ColumnSpan="3"/>
 
     </Grid>
 </UserControl>

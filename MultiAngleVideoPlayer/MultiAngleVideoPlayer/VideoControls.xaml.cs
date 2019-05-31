@@ -88,6 +88,12 @@ namespace MultiAngleVideoPlayer
                 message = "1/2 Playback Speed";
             }
             viewer.UpdateSpeedLabel(message);
+
+            if (message.Equals(""))
+            {
+                message = "Reset to normal speed.";
+            }
+            Logger.Log(message);
         }
 
         private void ToggleLoopChapter(bool toggleOn)
@@ -98,9 +104,14 @@ namespace MultiAngleVideoPlayer
             {
                 LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
                 message = "Looping Current Chapter";
+                Logger.Log(message);
             }              
             else
+            {
                 LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
+                Logger.Log("Loop cancelled.");
+            }
+                
 
             viewer.UpdateLoopLabel(message);
         }
@@ -146,7 +157,8 @@ namespace MultiAngleVideoPlayer
         public void SetPreviewPosition(Point pos)
         {
             double newPosition = pos.X;
-            double currentIncrements = duration / 1500 * newPosition*0.75;
+            //double currentIncrements = duration / 1500 * newPosition*0.75;
+            double currentIncrements = duration / this.ActualWidth * newPosition * 0.75;
 
             viewer.ShowScrubbingPreview((int)currentIncrements);
         }
@@ -157,20 +169,32 @@ namespace MultiAngleVideoPlayer
         /// <param name="markers">An array of ChapterMarkers to be placed.</param>
         public void SetChapterPositions(ChapterMarker[] markers)
         {
+            int counter = 1;
             foreach (ChapterMarker m in markers)
             {
                 double time = m.GetStartTime();
-                double totalIncrements = 1000 / duration;
+                //double totalIncrements = 1000 / duration;
+                double totalIncrements = ScrubbingBar.ActualWidth / duration;
                 double increments = totalIncrements * time;
 
                 Debug.WriteLine("Position: " + increments);
 
                 Grid.SetColumn(m, 1);
                 Grid.SetRow(m, 0);
-                m.Margin = new Thickness(increments - 50, -25, 0, 25);
+                //m.Margin = new Thickness(increments - 50, -100, 0, 25);
                 m.HorizontalAlignment = HorizontalAlignment.Left;
                 m.Tapped += ChapterMarker_Click;
+
+                if(counter % 2 == 0)
+                {
+                    m.Margin = new Thickness(increments - 50, -75, 0, 25);
+                } else
+                {
+                    m.Margin = new Thickness(increments - 50, -40, 0, 25);
+                }
+
                 VideoControlGrid.Children.Add(m);
+                counter++;
             }
         }
 
@@ -178,12 +202,15 @@ namespace MultiAngleVideoPlayer
         /// Based on a point selected by the user, determine the new video playback position.
         /// </summary>
         /// <param name="pos"></param>
-        public void CalculateVideoPosition(Point pos)
+        public int CalculateVideoPosition(Point pos)
         {
             double newPosition = pos.X;
-            double currentIncrements = duration / 1000 * newPosition;
+            //double currentIncrements = duration / 1000 * newPosition;
+            double currentIncrements = duration / ScrubbingBar.ActualWidth * newPosition;
 
             viewer.NewVideoPosition((int)currentIncrements);
+
+            return (int)currentIncrements;
         }
 
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
@@ -270,6 +297,7 @@ namespace MultiAngleVideoPlayer
         private void TenBackButton_Click(object sender, RoutedEventArgs e)
         {
             viewer.UpdatePosition(-10);
+            Logger.Log("Back 10 seconds.");
         }
 
         /// <summary>
@@ -281,6 +309,7 @@ namespace MultiAngleVideoPlayer
         private void TenForwardButton_Click(object sender, RoutedEventArgs e)
         {
             viewer.UpdatePosition(10);
+            Logger.Log("Forward 10 seconds.");
         }
 
         /// <summary>
@@ -321,7 +350,8 @@ namespace MultiAngleVideoPlayer
         {
             if (duration > 0)
             {
-                CalculateVideoPosition(e.GetPosition(ScrubbingBar));
+                int pos = CalculateVideoPosition(e.GetPosition(ScrubbingBar));
+                Logger.Log("Jumped to point: " + pos);
             }
         }
 
@@ -336,6 +366,7 @@ namespace MultiAngleVideoPlayer
             if (!scrubbing)
             {
                 scrubbing = true;
+                Logger.Log("Started scrubbing.");
             }
             if (duration > 0)
             {
@@ -356,6 +387,7 @@ namespace MultiAngleVideoPlayer
                 scrubbing = false;
                 viewer.HideScrubbingPreview();
                 CalculateVideoPosition(e.GetCurrentPoint(ScrubbingBar).Position);
+                Logger.Log("Stopped scrubbing.");
             }
         }
 
@@ -384,6 +416,7 @@ namespace MultiAngleVideoPlayer
             ChapterMarker marker = (ChapterMarker)sender;
             double jumpToTime = marker.GetStartTime();
             viewer.NewVideoPosition((int)jumpToTime);
+            Logger.Log("Jump to chapter: " + marker.GetText());
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
@@ -393,7 +426,8 @@ namespace MultiAngleVideoPlayer
         {
             if (duration > 0)
             {
-                double totalIncrements = 1000 / duration;
+                //double totalIncrements = 1000 / duration;
+                double totalIncrements = ScrubbingBar.ActualWidth / duration;
                 double currentIncrements = totalIncrements * currentPosition ;
 
                 VideoProgressBar.Width = currentIncrements;

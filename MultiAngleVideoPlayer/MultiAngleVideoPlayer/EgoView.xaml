@@ -48,6 +48,10 @@
         <TextBlock x:Name="NoVidMessage" Grid.Column="1" HorizontalAlignment="Center" Height="57" Grid.Row="1" Text="Select a video angle to being viewing." TextWrapping="Wrap" VerticalAlignment="Center" Width="623" TextAlignment="Center" FontSize="36"/>
         <MediaElement x:Name="CurrentVideo" Grid.ColumnSpan="2" MediaOpened="CurrentVideo_MediaOpened" Grid.Row="1" Margin="0,20,0,0"/>
         <local:VideoControls x:Name="VideoControlGrid" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,3,0,0"/>
+        <Grid x:Name="ScrubbingGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="109" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Bottom" Width="152" Visibility="Collapsed" Margin="125,0,0,88">
+            <Rectangle x:Name="ScrubbingSquare" HorizontalAlignment="Left" Height="109" VerticalAlignment="Top" Width="152" Fill="#FFFC3232"/>
+            <MediaElement x:Name="ScrubbingPreview" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True" Margin="2,2,2,2" MediaOpened="ScrubbingPreview_MediaOpened" AutoPlay="False"/>
+        </Grid>
         <Grid x:Name="AngleIconGrid" Grid.Column="2" HorizontalAlignment="Stretch" Grid.RowSpan="3" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -64,10 +68,6 @@
             <Image x:Name="AngleIcon3" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="3" Source="/Icons/CameraRightShoulder.JPG" Tapped="AngleChoice_Tapped"/>
             <Image x:Name="AngleIcon4" HorizontalAlignment="Right" Height="100" VerticalAlignment="Center" Width="100" Grid.Row="4" Source="/Icons/CameraElbow.JPG" Tapped="AngleChoice_Tapped"/>
             <Image x:Name="AngleIcon5" HorizontalAlignment="Right" Height="100" Grid.Row="5" VerticalAlignment="Center" Width="100" Source="/Icons/CameraLeftShoulder.JPG" Tapped="AngleChoice_Tapped"/>
-        </Grid>
-        <Grid x:Name="ScrubbingGrid" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="109" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Bottom" Width="152" Visibility="Collapsed" Margin="125,0,0,88">
-            <Rectangle x:Name="ScrubbingSquare" HorizontalAlignment="Left" Height="109" VerticalAlignment="Top" Width="152" Fill="#FFFC3232"/>
-            <MediaElement x:Name="ScrubbingPreview" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:IsHidden="True" Margin="2,2,2,2" MediaOpened="ScrubbingPreview_MediaOpened" AutoPlay="False"/>
         </Grid>
         <TextBlock x:Name="LoopStatusLabel" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="50" FontSize="36" FontWeight="Bold" FocusVisualPrimaryBrush="#FF4E47F6" Foreground="#FF4E47F6" TextAlignment="Left"/>
         <TextBlock x:Name="SpeedStatusLabel" HorizontalAlignment="Left" Height="50" Margin="0,50,0,-20" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF4E47F6" Grid.ColumnSpan="2" FontSize="36" FontWeight="Bold"/>

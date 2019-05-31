@@ -43,6 +43,9 @@ namespace MultiAngleVideoPlayer
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             //coreTitleBar.ExtendViewIntoTitleBar = true;
 
+            //initialize logger
+            Logger.CreateLog("test");
+
             //only ego view now
             EgoViewGrid.Visibility = Visibility.Visible;
             VersionSelectGrid.Visibility = Visibility.Collapsed;
@@ -66,7 +69,7 @@ namespace MultiAngleVideoPlayer
             {
                 for (int i = 0; i < vidURIs.Length; i++)
                 {
-                    vidURIs[i] = new Uri("ms-appx:///Videos/concatNum" + (i + 1) + ".avi");
+                    vidURIs[i] = new Uri("ms-appx:///Videos/concatNum" + (i + 1) + ".mp4");
                 }
             }
             catch (Exception e)
