@@ -169,6 +169,7 @@ namespace MultiAngleVideoPlayer
         /// <param name="markers">An array of ChapterMarkers to be placed.</param>
         public void SetChapterPositions(ChapterMarker[] markers)
         {
+            Debug.WriteLine("Duration: " + duration);
             int counter = 1;
             foreach (ChapterMarker m in markers)
             {

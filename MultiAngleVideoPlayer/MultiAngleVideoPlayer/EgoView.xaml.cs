@@ -42,6 +42,8 @@ namespace MultiAngleVideoPlayer
         int currentChapterIndex = 0;
         Tuple<double,double> loopBounds = null;
 
+        MediaElement currentVid = new MediaElement();
+
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
         /// <summary>
@@ -202,6 +204,12 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Source = paths[3];
             AngleChoice4.Source = paths[4];
             AngleChoice5.Source = paths[5];
+            CurrentVideo0.Source = paths[0];
+            CurrentVideo1.Source = paths[1];
+            CurrentVideo2.Source = paths[2];
+            CurrentVideo3.Source = paths[3];
+            CurrentVideo4.Source = paths[4];
+            CurrentVideo5.Source = paths[5];
 
             //dim the angle choices
             AngleChoice0.Opacity = 0.3;
@@ -220,11 +228,13 @@ namespace MultiAngleVideoPlayer
         /// </summary>
         public void PlayVid()
         {
+            
+            
             //Logger.Log("Pressed play.");
             VideoControlGrid.ChangeButtonLabel("Pause");
             playing = true;
 
-            CurrentVideo.Play();            
+            currentVid.Play();
             if (!paused)
             {
                 AngleChoice0.Play();
@@ -235,7 +245,7 @@ namespace MultiAngleVideoPlayer
                 AngleChoice5.Play();
             }          
             
-            CurrentVideo.PlaybackRate = rate;
+            currentVid.PlaybackRate = rate;
             AngleChoice0.PlaybackRate = rate;
             AngleChoice1.PlaybackRate = rate;
             AngleChoice2.PlaybackRate = rate;
@@ -244,7 +254,7 @@ namespace MultiAngleVideoPlayer
             AngleChoice5.PlaybackRate = rate;
 
             timer.Start();
-            CurrentVideo.PlaybackRate = rate;
+            //CurrentVideo.PlaybackRate = rate;
         }
 
         /// <summary>
@@ -255,7 +265,7 @@ namespace MultiAngleVideoPlayer
             //Logger.Log("Pressed pause.");
             VideoControlGrid.ChangeButtonLabel("Play");
             playing = false;
-            rate = CurrentVideo.PlaybackRate;
+            rate = currentVid.PlaybackRate;
 
             AngleChoice0.Pause();
             AngleChoice1.Pause();
@@ -263,7 +273,7 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Pause();
             AngleChoice4.Pause();
             AngleChoice5.Pause();
-            CurrentVideo.Pause();
+            currentVid.Pause();
             timer.Stop();
         }
 
@@ -311,7 +321,12 @@ namespace MultiAngleVideoPlayer
         /// <param name="speed">The new playback rate.</param>
         public void UpdateVideoSpeed(double speed)
         {
-            CurrentVideo.PlaybackRate = speed;
+            CurrentVideo0.PlaybackRate = speed;
+            CurrentVideo1.PlaybackRate = speed;
+            CurrentVideo2.PlaybackRate = speed;
+            CurrentVideo3.PlaybackRate = speed;
+            CurrentVideo4.PlaybackRate = speed;
+            CurrentVideo5.PlaybackRate = speed;
             AngleChoice0.PlaybackRate = speed;
             AngleChoice1.PlaybackRate = speed;
             AngleChoice2.PlaybackRate = speed;
@@ -326,7 +341,12 @@ namespace MultiAngleVideoPlayer
         /// <param name="change">The number of seconds to jump forward or backward.</param>
         public void UpdatePosition(int change)
         {
-            CurrentVideo.Position += new TimeSpan(0,0,change);
+            CurrentVideo0.Position += new TimeSpan(0,0,change);
+            CurrentVideo1.Position += new TimeSpan(0, 0, change);
+            CurrentVideo2.Position += new TimeSpan(0, 0, change);
+            CurrentVideo3.Position += new TimeSpan(0, 0, change);
+            CurrentVideo4.Position += new TimeSpan(0, 0, change);
+            CurrentVideo5.Position += new TimeSpan(0, 0, change);
             AngleChoice0.Position += new TimeSpan(0, 0, change);
             AngleChoice1.Position += new TimeSpan(0, 0, change);
             AngleChoice2.Position += new TimeSpan(0, 0, change);
@@ -341,7 +361,12 @@ namespace MultiAngleVideoPlayer
         /// <param name="pos">The point in the video to jump to, in seconds.</param>
         public void NewVideoPosition(int pos)
         {
-            CurrentVideo.Position = new TimeSpan(0, 0, pos);
+            CurrentVideo0.Position = new TimeSpan(0, 0, pos);
+            CurrentVideo1.Position = new TimeSpan(0, 0, pos);
+            CurrentVideo2.Position = new TimeSpan(0, 0, pos);
+            CurrentVideo3.Position = new TimeSpan(0, 0, pos);
+            CurrentVideo4.Position = new TimeSpan(0, 0, pos);
+            CurrentVideo5.Position = new TimeSpan(0, 0, pos);
             AngleChoice0.Position = new TimeSpan(0, 0, pos);
             AngleChoice1.Position = new TimeSpan(0, 0, pos);
             AngleChoice2.Position = new TimeSpan(0, 0, pos);
@@ -433,7 +458,7 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         public void AngleChoice_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            CurrentVideo.Pause();
+            //CurrentVideo.Pause();
 
             NoVidMessage.Visibility = Visibility.Collapsed;
             VideoControlGrid.EnableButtons(true);
@@ -453,11 +478,20 @@ namespace MultiAngleVideoPlayer
             }
 
             //set main video
-            CurrentVideo.Source = selected.Source;
+            //CurrentVideo.Source = selected.Source;
+            currentVid.Visibility = Visibility.Collapsed;
+            currentVid.Stop();
+
+            currentVid = (MediaElement)AngleSelectGrid.FindName("CurrentVideo" + name.Last<char>().ToString());
+            //currentVid.Play();
+            currentVid.Position = selected.Position;
+            
+
             ScrubbingPreview.Source = selected.Source;
             rate = selected.PlaybackRate;
             PlayVid();
-            position = selected.Position;
+            //position = selected.Position;
+            currentVid.Visibility = Visibility.Visible;
 
             //adjust border colours
             UpdateAngleBorders(name);
@@ -476,12 +510,14 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         public void CurrentVideo_MediaOpened(object sender, RoutedEventArgs e)
         {
+            /*
             if (position != null)
             {
-                CurrentVideo.Position = AngleChoice0.Position;
-                CurrentVideo.PlaybackRate = rate;
+                currentVid.Position = AngleChoice0.Position;
+                currentVid.PlaybackRate = rate;
             }
 
+            
             TimeSpan duration = CurrentVideo.NaturalDuration.TimeSpan;
             double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
             VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
@@ -493,13 +529,20 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Play();
             AngleChoice4.Play();
             AngleChoice5.Play();
+            */
+
+            
 
             //if this is the first play, set up the chapter markers
             if (!chaptersSet)
             {
+                TimeSpan duration = ((MediaElement)sender).NaturalDuration.TimeSpan;
+                double minutes = (duration.TotalHours / 60) + duration.TotalMinutes;
+                VideoControlGrid.SetDuration((minutes / 60) + duration.TotalSeconds);
                 chaptersSet = true;
                 CreateChapterMarkers();
             }
+            
         }
 
         /// <summary>
@@ -512,7 +555,7 @@ namespace MultiAngleVideoPlayer
         {
             if (playing)
             {
-                TimeSpan currentPosition = CurrentVideo.Position;
+                TimeSpan currentPosition = currentVid.Position;
                 double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
                 double seconds = (minutes / 60) + currentPosition.TotalSeconds;
                 VideoControlGrid.UpdateProgressBar(seconds);
@@ -555,8 +598,18 @@ namespace MultiAngleVideoPlayer
                 m.Visibility = Visibility.Collapsed;
             }
             markers = null;
-            CurrentVideo.Stop();
-            CurrentVideo.Source = null;
+            CurrentVideo0.Stop();
+            CurrentVideo0.Source = null;
+            CurrentVideo1.Stop();
+            CurrentVideo1.Source = null;
+            CurrentVideo2.Stop();
+            CurrentVideo2.Source = null;
+            CurrentVideo3.Stop();
+            CurrentVideo3.Source = null;
+            CurrentVideo4.Stop();
+            CurrentVideo4.Source = null;
+            CurrentVideo5.Stop();
+            CurrentVideo5.Source = null;
             VideoControlGrid.UpdateProgressBar(-1);
             SpeedStatusLabel.Text = "";
             LoopStatusLabel.Text = "";
