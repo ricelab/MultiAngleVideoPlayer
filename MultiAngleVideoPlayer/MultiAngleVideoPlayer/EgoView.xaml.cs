@@ -211,6 +211,8 @@ namespace MultiAngleVideoPlayer
             CurrentVideo4.Source = paths[4];
             CurrentVideo5.Source = paths[5];
 
+            currentVid = new MediaElement();
+
             //dim the angle choices
             AngleChoice0.Opacity = 0.3;
             AngleChoice1.Opacity = 0.3;
@@ -379,12 +381,12 @@ namespace MultiAngleVideoPlayer
         /// Creates a preview for the video content at the point on the timeline the user is currently holding down.
         /// </summary>
         /// <param name="pos">The x value of the point pressed by the user.</param>
-        public void ShowScrubbingPreview(int pos)
+        public void ShowScrubbingPreview(int pos, int vidPos)
         {
             ScrubbingGrid.Visibility = Visibility.Visible;
             ScrubbingGrid.Margin = new Thickness((double)pos, 0, 0, 88);
             ScrubbingPreview.Play();
-            ScrubbingPreview.Position = new TimeSpan(0, 0, pos);
+            ScrubbingPreview.Position = new TimeSpan(0, 0, vidPos);
             ScrubbingPreview.Pause();
         }
 
@@ -626,6 +628,12 @@ namespace MultiAngleVideoPlayer
             loopBounds = null;
 
             NoVidMessage.Visibility = Visibility.Visible;
+            CurrentVideo0.Visibility = Visibility.Collapsed;
+            CurrentVideo1.Visibility = Visibility.Collapsed;
+            CurrentVideo2.Visibility = Visibility.Collapsed;
+            CurrentVideo3.Visibility = Visibility.Collapsed;
+            CurrentVideo4.Visibility = Visibility.Collapsed;
+            CurrentVideo5.Visibility = Visibility.Collapsed;
             VideoControlGrid.ResetFlags();
             UpdateAngleBorders(null);
         }

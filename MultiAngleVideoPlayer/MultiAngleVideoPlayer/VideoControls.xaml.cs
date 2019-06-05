@@ -157,10 +157,13 @@ namespace MultiAngleVideoPlayer
         public void SetPreviewPosition(Point pos)
         {
             double newPosition = pos.X;
-            //double currentIncrements = duration / 1500 * newPosition*0.75;
-            double currentIncrements = duration / this.ActualWidth * newPosition * 0.75;
+            //double currentIncrements = duration / this.ActualWidth * newPosition * 0.75;
+            //double currentIncrements = this.ActualWidth * newPosition * 0.75 / duration;
 
-            viewer.ShowScrubbingPreview((int)currentIncrements);
+            //double totalIncrements = this.ActualWidth / duration;
+            //double currentIncrements = totalIncrements * newPosition * 0.75;
+
+            viewer.ShowScrubbingPreview((int)newPosition, (int)(duration / ScrubbingBar.ActualWidth * newPosition));
         }
 
         /// <summary>
@@ -446,7 +449,7 @@ namespace MultiAngleVideoPlayer
             {
                 //double totalIncrements = 1000 / duration;
                 double totalIncrements = ScrubbingBar.ActualWidth / duration;
-                double currentIncrements = totalIncrements * currentPosition ;
+                double currentIncrements = totalIncrements * currentPosition;
 
                 VideoProgressBar.Width = currentIncrements;
             }
