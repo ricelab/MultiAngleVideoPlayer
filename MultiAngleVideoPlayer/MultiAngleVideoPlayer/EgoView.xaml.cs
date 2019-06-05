@@ -175,7 +175,7 @@ namespace MultiAngleVideoPlayer
             if (seconds > loopBounds.Item2)
             {
                 NewVideoPosition((int)loopBounds.Item1);
-                Logger.Log("Restarting chapter.");
+                Logger.Log("Restarting chapter," + currentVid.Position);
             }
         }
 
@@ -225,14 +225,16 @@ namespace MultiAngleVideoPlayer
             SetupChapters();
         }
 
+        public TimeSpan GetPosition()
+        {
+            return currentVid.Position;
+        }
+
         /// <summary>
         /// Starts all videos playing.
         /// </summary>
         public void PlayVid()
         {
-            
-            
-            //Logger.Log("Pressed play.");
             VideoControlGrid.ChangeButtonLabel("Pause");
             playing = true;
 
@@ -268,6 +270,7 @@ namespace MultiAngleVideoPlayer
             VideoControlGrid.ChangeButtonLabel("Play");
             playing = false;
             rate = currentVid.PlaybackRate;
+            position = currentVid.Position;
 
             AngleChoice0.Pause();
             AngleChoice1.Pause();
@@ -308,12 +311,12 @@ namespace MultiAngleVideoPlayer
             if (!playing)
             {
                 PlayVid();
-                Logger.Log("Pressed play.");
+                Logger.Log("Pressed play," + currentVid.Position);
             }
             else
             {
                 PauseVid();
-                Logger.Log("Pressed pause.");
+                Logger.Log("Pressed pause," + currentVid.Position);
             }
         }
 
@@ -335,6 +338,8 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.PlaybackRate = speed;
             AngleChoice4.PlaybackRate = speed;
             AngleChoice5.PlaybackRate = speed;
+
+            rate = speed;
         }
 
         /// <summary>
@@ -355,6 +360,19 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Position += new TimeSpan(0, 0, change);
             AngleChoice4.Position += new TimeSpan(0, 0, change);
             AngleChoice5.Position += new TimeSpan(0, 0, change);
+
+            if (paused)
+            {
+                TimeSpan currentPosition = currentVid.Position;
+                double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
+                double seconds = (minutes / 60) + currentPosition.TotalSeconds;
+                VideoControlGrid.UpdateProgressBar(seconds);
+
+                if (markers != null)
+                    CheckUpdateChapter(seconds);
+                if (loopBounds != null)
+                    CheckRestartLoop(seconds);
+            }
         }
 
         /// <summary>
@@ -375,6 +393,20 @@ namespace MultiAngleVideoPlayer
             AngleChoice3.Position = new TimeSpan(0, 0, pos);
             AngleChoice4.Position = new TimeSpan(0, 0, pos);
             AngleChoice5.Position = new TimeSpan(0, 0, pos);
+
+            if (paused)
+            {
+                TimeSpan currentPosition = currentVid.Position;
+                double minutes = (currentPosition.TotalHours / 60) + currentPosition.TotalMinutes;
+                double seconds = (minutes / 60) + currentPosition.TotalSeconds;
+                VideoControlGrid.UpdateProgressBar(seconds);
+
+                if (markers != null)
+                    CheckUpdateChapter(seconds);
+                if (loopBounds != null)
+                    CheckRestartLoop(seconds);
+            }
+            
         }
 
         /// <summary>
@@ -401,7 +433,7 @@ namespace MultiAngleVideoPlayer
         public void UpdateLoopBounds(double start, double end)
         {
             loopBounds = new Tuple<double, double>(start, end);
-            Logger.Log("Starting loop chapter: " + chapterNames[currentChapterIndex]);
+            Logger.Log("Starting loop chapter: " + chapterNames[currentChapterIndex] + ", " + currentVid.Position);
         }
 
         public void CancelLoop()
@@ -498,7 +530,7 @@ namespace MultiAngleVideoPlayer
             //adjust border colours
             UpdateAngleBorders(name);
 
-            Logger.Log(new string(name) + " selected.");
+            Logger.Log(new string(name) + " selected," + currentVid.Position);
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------
@@ -578,7 +610,7 @@ namespace MultiAngleVideoPlayer
         {
             playing = false;
             timer.Stop();
-            Logger.Log("End of video.");
+            Logger.Log("End of video," + currentVid.Position);
         }
 
         /// <summary>
