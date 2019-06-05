@@ -28,12 +28,16 @@ namespace MultiAngleVideoPlayer
         bool halfSpeed = false;
         bool scrubbing = false;
         bool chapterLooping = false;
+        public bool singleView = false;
         //bool customLooping = false;
 
         //the video viewer which this control is part of
         //this class is leftover from a previous version which also had the option to create an ExoView viewer
         //(should this be changed?)
+
         public EgoView viewer { get; set; }
+        public SingleView singleViewer { get; set; }
+
 
         // --------------------------------------------------- CONSTRUCTORS ---------------------------------------------------
 
@@ -87,13 +91,26 @@ namespace MultiAngleVideoPlayer
             {
                 message = "1/2 Playback Speed";
             }
-            viewer.UpdateSpeedLabel(message);
 
-            if (message.Equals(""))
+
+            if (!singleView)
             {
-                message = "Reset to normal speed.";
+                viewer.UpdateSpeedLabel(message);
+                if (message.Equals(""))
+                {
+                    message = "Reset to normal speed.";
+                }
+                Logger.Log(message + "," + viewer.GetPosition());
+            } else
+            {
+                singleViewer.UpdateSpeedLabel(message);
+                if (message.Equals(""))
+                {
+                    message = "Reset to normal speed.";
+                }
+                Logger.Log(message + "," + singleViewer.GetPosition());
             }
-            Logger.Log(message + "," + viewer.GetPosition());
+
         }
 
         private void ToggleLoopChapter(bool toggleOn)
@@ -104,16 +121,38 @@ namespace MultiAngleVideoPlayer
             {
                 LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.Gray);
                 message = "Looping Current Chapter";
-                Logger.Log(message + "," + viewer.GetPosition());
+                
+                if (!singleView)
+                {
+                    Logger.Log(message + "," + viewer.GetPosition());
+                } else
+                {
+                    Logger.Log(message + "," + singleViewer.GetPosition());
+                }
+
+                
             }              
             else
             {
                 LoopChapterButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
-                Logger.Log("Loop cancelled," + viewer.GetPosition());
+
+                if (!singleView)
+                {
+                    Logger.Log("Loop cancelled," + viewer.GetPosition());
+                } else
+                {
+                    Logger.Log("Loop cancelled," + singleViewer.GetPosition());
+                }
             }
                 
-
-            viewer.UpdateLoopLabel(message);
+            if (!singleView)
+            {
+                viewer.UpdateLoopLabel(message);
+            } else
+            {
+                singleViewer.UpdateLoopLabel(message);
+            }
+            
         }
 
         // -------------------------------------------------- PUBLIC METHODS --------------------------------------------------
@@ -163,7 +202,14 @@ namespace MultiAngleVideoPlayer
             //double totalIncrements = this.ActualWidth / duration;
             //double currentIncrements = totalIncrements * newPosition * 0.75;
 
-            viewer.ShowScrubbingPreview((int)newPosition, (int)(duration / ScrubbingBar.ActualWidth * newPosition));
+            if (!singleView)
+            {
+                viewer.ShowScrubbingPreview((int)newPosition, (int)(duration / ScrubbingBar.ActualWidth * newPosition));
+            } else
+            {
+                singleViewer.ShowScrubbingPreview((int)newPosition, (int)(duration / ScrubbingBar.ActualWidth * newPosition));
+            }
+            
         }
 
         /// <summary>
@@ -212,7 +258,14 @@ namespace MultiAngleVideoPlayer
             //double currentIncrements = duration / 1000 * newPosition;
             double currentIncrements = duration / ScrubbingBar.ActualWidth * newPosition;
 
-            viewer.NewVideoPosition((int)currentIncrements);
+            if (!singleView)
+            {
+                viewer.NewVideoPosition((int)currentIncrements);
+            } else
+            {
+                singleViewer.NewVideoPosition((int)currentIncrements);
+            }
+            
 
             return (int)currentIncrements;
         }
@@ -224,6 +277,8 @@ namespace MultiAngleVideoPlayer
             halfSpeed = false;
             scrubbing = false;
             chapterLooping = false;
+
+            PlayPauseButton.Content = "Play";
 
             TwoSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
             HalfSpeedButton.Background = new SolidColorBrush(Windows.UI.Colors.LightGray);
@@ -239,7 +294,14 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            viewer.PlayPause();
+            if (!singleView)
+            {
+                viewer.PlayPause();
+            } else
+            {
+                singleViewer.PlayPause();
+            }
+            
             /*
             if (PlayPauseButton.Content.Equals("Play"))
             {
@@ -269,14 +331,27 @@ namespace MultiAngleVideoPlayer
         {
             if (!doubleSpeed)
             {
-                viewer.UpdateVideoSpeed(2.0);
+                if (!singleView)
+                {
+                    viewer.UpdateVideoSpeed(2.0);
+                } else
+                {
+                    singleViewer.UpdateVideoSpeed(2.0);
+                }
+                
                 //TwoSpeedButton.Content = "Normal Speed";
                 //HalfSpeedButton.Content = "1/2 Speed";
                 ToggleDoubleSpeed(true);
                 ToggleHalfSpeed(false);
             } else
             {
-                viewer.UpdateVideoSpeed(1.0);
+                if (!singleView)
+                {
+                    viewer.UpdateVideoSpeed(1.0);
+                } else
+                {
+                    singleViewer.UpdateVideoSpeed(1.0);
+                }
                 //TwoSpeedButton.Content = "2x Speed";
                 ToggleDoubleSpeed(false);
             }
@@ -293,14 +368,28 @@ namespace MultiAngleVideoPlayer
         {
             if (!halfSpeed)
             {
-                viewer.UpdateVideoSpeed(0.5);
+                if (!singleView)
+                {
+                    viewer.UpdateVideoSpeed(0.5);
+                } else
+                {
+                    singleViewer.UpdateVideoSpeed(0.5);
+                }
+                
                 //HalfSpeedButton.Content = "Normal Speed";
                 //TwoSpeedButton.Content = "2x Speed";
                 ToggleHalfSpeed(true);
                 ToggleDoubleSpeed(false);
             } else
             {
-                viewer.UpdateVideoSpeed(1.0);
+                if (!singleView)
+                {
+                    viewer.UpdateVideoSpeed(1.0);
+                } else
+                {
+                    singleViewer.UpdateVideoSpeed(1.0);
+                }
+                
                 //HalfSpeedButton.Content = "1/2 Speed";
                 ToggleHalfSpeed(false);
             }
@@ -315,8 +404,17 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         private void TenBackButton_Click(object sender, RoutedEventArgs e)
         {
-            viewer.UpdatePosition(-10);
-            Logger.Log("Back 10 seconds," + viewer.GetPosition());
+            if (!singleView)
+            {
+                viewer.UpdatePosition(-10);
+                Logger.Log("Back 10 seconds," + viewer.GetPosition());
+            } else
+            {
+                singleViewer.UpdatePosition(-10);
+                Logger.Log("Back 10 seconds," + singleViewer.GetPosition());
+            }
+            
+            
         }
 
         /// <summary>
@@ -327,8 +425,16 @@ namespace MultiAngleVideoPlayer
         /// <param name="e"></param>
         private void TenForwardButton_Click(object sender, RoutedEventArgs e)
         {
-            viewer.UpdatePosition(10);
-            Logger.Log("Forward 10 seconds," + viewer.GetPosition());
+            if (!singleView)
+            {
+                viewer.UpdatePosition(10);
+                Logger.Log("Forward 10 seconds," + viewer.GetPosition());
+            } else
+            {
+                singleViewer.UpdatePosition(10);
+                Logger.Log("Forward 10 seconds," + singleViewer.GetPosition());
+            }
+            
         }
 
         /// <summary>
@@ -341,21 +447,48 @@ namespace MultiAngleVideoPlayer
         {
             if (!chapterLooping)
             {
+                ChapterMarker endMarker;
+                double startLoop;
                 ToggleLoopChapter(true);
-                int chapterIndex = viewer.GetCurrentChapterIndex();
-                double startLoop = viewer.GetChapter(chapterIndex).GetStartTime();
-                ChapterMarker endMarker = viewer.GetChapter(chapterIndex + 1);
+                if (!singleView)
+                {
+                    int chapterIndex = viewer.GetCurrentChapterIndex();
+                    startLoop = viewer.GetChapter(chapterIndex).GetStartTime();
+                    endMarker = viewer.GetChapter(chapterIndex + 1);
+                } else
+                {
+                    int chapterIndex = singleViewer.GetCurrentChapterIndex();
+                    startLoop = singleViewer.GetChapter(chapterIndex).GetStartTime();
+                    endMarker = singleViewer.GetChapter(chapterIndex + 1);
+                }
+
+
                 double endLoop = duration - 2;
                 if (endMarker != null)
                 {
                     endLoop = endMarker.GetStartTime();
                 }
-                viewer.UpdateLoopBounds(startLoop, endLoop);
+                if (!singleView)
+                {
+                    viewer.UpdateLoopBounds(startLoop, endLoop);
+                } else
+                {
+                    singleViewer.UpdateLoopBounds(startLoop, endLoop);
+                }
+                
 
             } else
             {
                 ToggleLoopChapter(false);
-                viewer.CancelLoop();
+                if (!singleView)
+                {
+                    viewer.CancelLoop();
+                } else
+                {
+                    singleViewer.CancelLoop();
+                }
+
+                
             }
         }
 
@@ -405,9 +538,17 @@ namespace MultiAngleVideoPlayer
             if (scrubbing)
             {
                 scrubbing = false;
-                viewer.HideScrubbingPreview();
                 CalculateVideoPosition(e.GetCurrentPoint(ScrubbingBar).Position);
-                Logger.Log("Stopped scrubbing," + viewer.GetPosition());
+                if (!singleView)
+                {
+                    viewer.HideScrubbingPreview();
+                    Logger.Log("Stopped scrubbing," + viewer.GetPosition());
+                } else
+                {
+                    singleViewer.HideScrubbingPreview();
+                    Logger.Log("Stopped scrubbing," + singleViewer.GetPosition());
+                }
+                
             }
         }
 
@@ -435,8 +576,16 @@ namespace MultiAngleVideoPlayer
         {
             ChapterMarker marker = (ChapterMarker)sender;
             double jumpToTime = marker.GetStartTime();
-            viewer.NewVideoPosition((int)jumpToTime);
-            Logger.Log("Jump to chapter: " + marker.GetText() + "," + viewer.GetPosition());
+            if (!singleView)
+            {
+                viewer.NewVideoPosition((int)jumpToTime);
+                Logger.Log("Jump to chapter: " + marker.GetText() + "," + viewer.GetPosition());
+            } else
+            {
+                singleViewer.NewVideoPosition((int)jumpToTime);
+                Logger.Log("Jump to chapter: " + marker.GetText() + "," + singleViewer.GetPosition());
+            }
+            
         }
 
         // ---------------------------------------------- NON-UI EVENT HANDLERS ----------------------------------------------

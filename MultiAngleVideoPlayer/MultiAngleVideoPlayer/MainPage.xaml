@@ -27,7 +27,10 @@
             <Button x:Name="RealVersionButton" Content="Real Version" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" FontSize="24" Margin="10,10,10,10" Click="RealVersionButton_Click"/>
             <TextBlock x:Name="ParticipantLabel" Grid.Column="1" HorizontalAlignment="Left" Margin="30,30,0,0" Grid.Row="1" Text="Participant Number:" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="215" FontSize="24"/>
             <TextBox x:Name="ParticipantBox" Grid.Column="1" HorizontalAlignment="Right" Height="42" Margin="0,30,30,0" Grid.Row="1" Text="" VerticalAlignment="Top" Width="181"/>
+            <RadioButton x:Name="Condition1Flag" Content="Condition 1" HorizontalAlignment="Left" Height="32" Margin="100,125,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Checked="ConditionFlag_Checked" GroupName="Condition"/>
+            <RadioButton x:Name="Condition2Flag" Content="Condition 2" Grid.Column="1" HorizontalAlignment="Right" Height="32" Margin="0,125,100,0" VerticalAlignment="Top" Width="107" Checked="ConditionFlag_Checked" GroupName="Condition"/>
         </Grid>
         <local:EgoView x:Name="EgoViewGrid" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" d:IsHidden="True"/>
+        <local:SingleView x:Name="SingleViewGrid"/>
     </Grid>
 </Page>

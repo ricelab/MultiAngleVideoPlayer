@@ -39,13 +39,6 @@ namespace MultiAngleVideoPlayer
         void PlayPause();
 
         /// <summary>
-        /// Defines what should happen when the user selects a video angle
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void AngleChoice_Tapped(object sender, TappedRoutedEventArgs e);
-
-        /// <summary>
         /// Defines what should happen when the selected video is opened, e.g. set the position.
         /// </summary>
         /// <param name="sender"></param>

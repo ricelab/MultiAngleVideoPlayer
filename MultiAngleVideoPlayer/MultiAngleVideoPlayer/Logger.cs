@@ -20,7 +20,7 @@ namespace MultiAngleVideoPlayer
         {
             try
             {
-                logFile = await DownloadsFolder.CreateFileAsync("logFileP" + participantNum + ".txt", Windows.Storage.CreationCollisionOption.GenerateUniqueName);
+                logFile = await DownloadsFolder.CreateFileAsync("logFileP" + participantNum + ".csv", Windows.Storage.CreationCollisionOption.GenerateUniqueName);
             } catch (Exception e)
             {
                 Debug.WriteLine(e);

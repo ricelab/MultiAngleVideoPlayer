@@ -30,6 +30,7 @@ namespace MultiAngleVideoPlayer
         //store the paths to the video feeds
         Uri[] vidURIs = new Uri[6];
         bool testMode = false;
+        bool singleMode = false;
         string participant = "";
 
 
@@ -50,14 +51,16 @@ namespace MultiAngleVideoPlayer
 
             //set grid visibility
             EgoViewGrid.Visibility = Visibility.Collapsed;
+            SingleViewGrid.Visibility = Visibility.Collapsed;
             VersionSelectGrid.Visibility = Visibility.Visible;
 
             //LoadVideos();
 
             //give the viewer grid a reference to the main page
             EgoViewGrid.SetMainPageReference(this);
+            SingleViewGrid.SetMainPageReference(this);
 
-            EgoViewGrid.GridVisible();
+            //EgoViewGrid.GridVisible();
         }
 
         // ------------------------------------------------- PRIVATE METHODS --------------------------------------------------
@@ -104,6 +107,7 @@ namespace MultiAngleVideoPlayer
         {
             VersionSelectGrid.Visibility = Visibility.Visible;
             EgoViewGrid.Visibility = Visibility.Collapsed;
+            SingleViewGrid.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -133,6 +137,7 @@ namespace MultiAngleVideoPlayer
 
         // ------------------------------------------------ UI EVENT HANDLERS -------------------------------------------------
 
+        /*
         /// <summary>
         /// Called when the user selects the egocentric viewer.
         /// </summary>
@@ -141,8 +146,16 @@ namespace MultiAngleVideoPlayer
         private void V1Button_Click(object sender, RoutedEventArgs e)
         {
             VersionSelectGrid.Visibility = Visibility.Collapsed;
-            EgoViewGrid.Visibility = Visibility.Visible;
-            EgoViewGrid.GridVisible();
+            if (!singleMode)
+            {
+                EgoViewGrid.Visibility = Visibility.Visible;
+                EgoViewGrid.GridVisible();
+            } else
+            {
+                SingleViewGrid.Visibility = Visibility.Visible;
+                SingleViewGrid.GridVisible();
+            }
+            
         }
 
         /// <summary>
@@ -154,6 +167,7 @@ namespace MultiAngleVideoPlayer
         {
             VersionSelectGrid.Visibility = Visibility.Collapsed;
         }
+        */
 
         private void TestVersionButton_Click(object sender, RoutedEventArgs e)
         {
@@ -162,8 +176,17 @@ namespace MultiAngleVideoPlayer
             LoadVideos();
             participant = ParticipantBox.Text;
             VersionSelectGrid.Visibility = Visibility.Collapsed;
-            EgoViewGrid.Visibility = Visibility.Visible;
-            EgoViewGrid.GridVisible();
+            if (!singleMode)
+            {
+                EgoViewGrid.Visibility = Visibility.Visible;
+                EgoViewGrid.GridVisible();
+            } else
+            {
+                SingleViewGrid.Visibility = Visibility.Visible;
+                SingleViewGrid.GridVisible();
+            }
+
+            
         }
 
         private void RealVersionButton_Click(object sender, RoutedEventArgs e)
@@ -174,9 +197,32 @@ namespace MultiAngleVideoPlayer
             Logger.CreateLog(participant);
             LoadVideos();
             VersionSelectGrid.Visibility = Visibility.Collapsed;
-            EgoViewGrid.Visibility = Visibility.Visible;
-            EgoViewGrid.HideBackButton();
-            EgoViewGrid.GridVisible();
+            if (!singleMode)
+            {
+                EgoViewGrid.Visibility = Visibility.Visible;
+                EgoViewGrid.HideBackButton();
+                EgoViewGrid.GridVisible();
+                Logger.Log("Multi View");
+            } else
+            {
+                SingleViewGrid.Visibility = Visibility.Visible;
+                SingleViewGrid.HideBackButton();
+                SingleViewGrid.GridVisible();
+                Logger.Log("Single View");
+            }
+            
+        }
+
+        private void ConditionFlag_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton b = (RadioButton)sender;
+            if (b.Content.Equals("Condition 1"))
+            {
+                singleMode = true;
+            } else
+            {
+                singleMode = false;
+            }
         }
     }
 }
